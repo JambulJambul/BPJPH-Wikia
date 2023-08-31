@@ -10,7 +10,6 @@ const Navbar = () => {
             <div className="justify-between text-center mt-8 mb-4 space-x-8">
               <Link to="/login" className="text-gray-100"> Login </Link>
               <Link to="/" className="text-gray-100"> Dashboard </Link>
-              <Link to="/my-profile" className="text-gray-100"> My Profile </Link>
             </div>
         </div>
     </>
