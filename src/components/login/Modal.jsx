@@ -35,7 +35,7 @@ const Modal = () => {
                     value={password} // Bind value to state
                     className="w-full px-6 py-3 my-4 border border-slate-600 rounded-lg font-medium"
                 />
-                <Link to="/">                   
+                <Link to="/my-profile">                   
                     <button className="bg-slate-500 hover:bg-slate-700 text-white text-base rounded-lg py-2.5 px-5 my-4 transition-colors w-full text-[19px]">
                         Log In
                     </button>

@@ -11,42 +11,6 @@ const Profile = ({ profile }) => {
 
   const [activeTab, setActiveTab] = useState('create')
 
-  const [newPost, setNewPost] = useState({
-    id: articles.length + 1,
-    title: '',
-    content: '',
-    reference: '',
-    img: '',
-  })
-
-  const handleInputChange = (event) => {
-    const { name, value } = event.target
-    setNewPost((prevPost) => ({
-      ...prevPost,
-      [name]: value,
-    }))
-  }
-  
-  const handleSubmit = (event) => {
-
-    event.preventDefault()
-
-    // Add the new post to the articles array
-    articles.push(newPost)
-
-    // Update local storage with the new articles data
-    localStorage.setItem('../../data/articles.json', JSON.stringify(articles))
-
-    // Clear the form inputs
-    setNewPost({
-      id: articles.length + 1,
-      title: '',
-      content: '',
-      reference: '',
-      img: '',
-    })
-  }
-
   return (
     <>
         <div className="container mx-auto my-60">
@@ -96,37 +60,29 @@ const Profile = ({ profile }) => {
                                     <h1 className="text-3xl text-gray-700 text-center my-6">
                                         Create a post
                                     </h1>
-                                    <form onSubmit={handleSubmit}>
+                                    <form>
                                         <input
                                             type="text"
                                             name="title"
                                             placeholder="Title"
-                                            value={newPost.title}
-                                            onChange={handleInputChange}
                                             className="w-full px-4 py-2 border rounded-md mb-4"
                                         />
                                         <input
                                             type="text"
                                             name="content"
                                             placeholder="Content"
-                                            value={newPost.content}
-                                            onChange={handleInputChange}
                                             className="w-full px-4 py-2 border rounded-md mb-4"
                                         />
                                         <input
                                             type="text"
                                             name="reference"
                                             placeholder="Reference"
-                                            value={newPost.reference}
-                                            onChange={handleInputChange}
                                             className="w-full px-4 py-2 border rounded-md mb-4"
                                         />
                                         <input
                                             type="text"
                                             name="img"
                                             placeholder="Image URL"
-                                            value={newPost.img}
-                                            onChange={handleInputChange}
                                             className="w-full px-4 py-2 border rounded-md mb-8"
                                         />
                                         <div className="flex flex-row justify-center items-center">
