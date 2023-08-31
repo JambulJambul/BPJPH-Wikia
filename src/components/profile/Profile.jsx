@@ -11,8 +11,6 @@ const Profile = ({ profile }) => {
 
   const [activeTab, setActiveTab] = useState('create')
 
-  const [articlesData, setArticlesData] = useState(articles)
-
   const [newPost, setNewPost] = useState({
     id: articles.length + 1,
     title: '',
@@ -47,21 +45,6 @@ const Profile = ({ profile }) => {
       reference: '',
       img: '',
     })
-  }
-
-  const handleDelete = (id) => {
-
-    // Filter out the article to be deleted
-    const updatedArticles = articlesData.filter((article) => article.id !== id)
-
-    // Update local storage and state
-    localStorage.setItem('articles', JSON.stringify(updatedArticles))
-
-     // Update the articles state
-    setArticlesData(updatedArticles)
-
-    // Update the tab
-    setActiveTab('edit')
   }
 
   return (
@@ -178,7 +161,6 @@ const Profile = ({ profile }) => {
                                                 {article.title} {/* Use article.title to get the title */}
                                             </Link>
                                             <button
-                                                onClick={() => handleDelete(article.id)}
                                                 className="bg-red-500 hover:bg-red-700 text-white mt-4 px-6 py-2 rounded-md"
                                             >
                                                 Delete
