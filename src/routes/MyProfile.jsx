@@ -20,7 +20,7 @@ const MyProfile = () => {
         <Loader />
       ) : (
         <>
-          <div className="grid absolute top-0 left-0 w-full justify-center items-center py-5 bg-blue-900">
+          <div className="grid absolute top-0 left-0 w-full justify-center items-center py-5 bg-blue-900 font-['Poppins']">
             <img src='/bpjph-logo.png' alt='BPJPH' className="w-80 m-auto" />
             <div className="justify-between text-center mt-8 mb-4 space-x-8">
               <Link to="/login" className="text-gray-100"> Logout </Link>

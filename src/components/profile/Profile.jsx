@@ -14,6 +14,10 @@ const Profile = ({ profile }) => {
   
   const [articles, setArticles] = useState([])
 
+  const [showAllArticles, setShowAllArticles] = useState(false)
+
+  const [displayedArticlesCount, setDisplayedArticlesCount] = useState(5)
+
   const [formData, setFormData] = useState({
     title: '',
     content: '',
@@ -61,6 +65,19 @@ const Profile = ({ profile }) => {
     // Fetch articles when the component mounts
     fetchArticles()
   }, [])
+
+  const toggleShowMore = () => {
+
+    setShowAllArticles(!showAllArticles)
+
+    if (showAllArticles) {
+      // If currently showing all articles, display only 5 items
+      setDisplayedArticlesCount(5)
+    } else {
+      // If not showing all articles, display all available articles
+      setDisplayedArticlesCount(articles.length)
+    }
+  }
 
   return (
     <>
@@ -174,7 +191,7 @@ const Profile = ({ profile }) => {
                                 <h1 className="text-3xl text-gray-700 text-center my-6">
                                     Manage your posts
                                 </h1>
-                                {articles.map((article) => (
+                                {articles.slice(0, displayedArticlesCount).map((article) => (
                                     <div className="w-full" key={article.id}>
                                         <div className="flex flex-row w-full mt-5 pr-6 justify-between items-center overflow-hidden">
                                             <Link
@@ -197,6 +214,29 @@ const Profile = ({ profile }) => {
                                         </div>
                                     </div>
                                 ))}
+                                
+                                <div className="flex w-full justify-center items-center">
+                                    <button
+                                        onClick={toggleShowMore}
+                                        className="text-gray-600 hover:text-gray-900 hover:underline my-3 block text-center transition-colors duration-300 ease-in-out"
+                                    >
+                                        {showAllArticles ? 'Show Less' : 'See More'}
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            className={`h-5 w-5 inline ml-1 transform ${
+                                                showAllArticles ? '-rotate-180' : 'rotate-0'
+                                            } transition-transform duration-300 ease-in-out`}
+                                            viewBox="0 0 20 20"
+                                            fill="currentColor"
+                                        >
+                                            <path
+                                                fillRule="evenodd"
+                                                d="M6.293 6.293a1 1 0 011.414 0L10 9.586l2.293-2.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z"
+                                                clipRule="evenodd"
+                                            />
+                                        </svg>
+                                    </button>
+                                </div>
                             </>
                         )}
                         {activeTab === 'logout' && (

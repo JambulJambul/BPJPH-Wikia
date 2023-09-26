@@ -11,7 +11,7 @@ const ArticleCard = ({ article }) => {
       <>
         <Link to={`/article/${id}`}>
           <div className="max-w-full mx-auto p-4 bg-white shadow-md rounded-md mb-4 ">
-            <h2 className="text-4xl font-bold mb-2 tracking-wider font-['Ysabeau Office']">
+            <h2 className="text-4xl font-bold mb-2 tracking-wider font-['Poppins']">
               {title}
             </h2>
             <p className="text-gray-800 pt-6">
