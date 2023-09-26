@@ -79,6 +79,10 @@ const Profile = ({ profile }) => {
     }
   }
 
+  const logoutMSG = () => {
+    console.log("Aight, blud. Godspeed.")
+  }
+
   return (
     <>
         <div className="container mx-auto my-60">
@@ -218,7 +222,7 @@ const Profile = ({ profile }) => {
                                 <div className="flex w-full justify-center items-center">
                                     <button
                                         onClick={toggleShowMore}
-                                        className="text-gray-600 hover:text-gray-900 hover:underline my-3 block text-center transition-colors duration-300 ease-in-out"
+                                        className="bg-blue-600 hover:bg-blue-300 text-white mt-4 px-6 py-2 rounded-md transition-colors duration-300 ease-in-out"
                                     >
                                         {showAllArticles ? 'Show Less' : 'See More'}
                                         <svg
@@ -257,7 +261,8 @@ const Profile = ({ profile }) => {
                                     </Link>
                                     <button
                                         type="submit"
-                                        className="bg-blue-600 hover:bg-blue-300 text-white mt-4 px-6 py-2 rounded-md"
+                                        onClick={logoutMSG}
+                                        className="text-gray-600 hover:text-gray-900 hover:underline mt-4 px-6 py-2 block text-center transition-colors duration-300 ease-in-out"
                                     >
                                         No
                                     </button>
