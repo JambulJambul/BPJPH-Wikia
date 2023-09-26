@@ -1,15 +1,66 @@
 /* eslint-disable react/no-unknown-property */
 /* eslint-disable react/prop-types */
 // eslint-disable-next-line no-unused-vars
-import React, { useState } from 'react'
-import articles from '../../data/articles.json'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
+import axios from 'axios'
 
 const Profile = ({ profile }) => {
 
   const { admin, bio, social, img } = profile
 
   const [activeTab, setActiveTab] = useState('create')
+
+  
+  const [articles, setArticles] = useState([])
+
+  const [formData, setFormData] = useState({
+    title: '',
+    content: '',
+    reference: '',
+    img: '',
+  })
+
+  const fetchArticles = async () => {
+    try {
+      const response = await axios.get('/api/articles')
+      setArticles(response.data)
+    } catch (error) {
+      console.error('Error fetching articles:', error)
+    }
+  }
+
+  const createArticle = async () => {
+    try {
+      await axios.post('/api/articles', formData)
+      // Clear the form data or update state as needed
+      setFormData({
+        title: '',
+        content: '',
+        reference: '',
+        img: '',
+      })
+      // Fetch articles again to update the list
+      fetchArticles();
+    } catch (error) {
+      console.error('Error creating article:', error)
+    }
+  }
+
+  const deleteArticle = async (articleId) => {
+    try {
+      await axios.delete(`/api/articles/${articleId}`)
+      // Fetch articles again to update the list
+      fetchArticles()
+    } catch (error) {
+      console.error('Error deleting article:', error)
+    }
+  }
+
+  useEffect(() => {
+    // Fetch articles when the component mounts
+    fetchArticles()
+  }, [])
 
   return (
     <>
@@ -60,30 +111,51 @@ const Profile = ({ profile }) => {
                                     <h1 className="text-3xl text-gray-700 text-center my-6">
                                         Create a post
                                     </h1>
-                                    <form>
+                                    <form
+                                        onSubmit={(e) => {
+                                            e.preventDefault()
+                                            createArticle()
+                                        }}
+                                    >
                                         <input
                                             type="text"
                                             name="title"
                                             placeholder="Title"
                                             className="w-full px-4 py-2 border rounded-md mb-4"
+                                            value={formData.title}
+                                            onChange={(e) =>
+                                              setFormData({ ...formData, title: e.target.value })
+                                            }
                                         />
                                         <input
                                             type="text"
                                             name="content"
                                             placeholder="Content"
                                             className="w-full px-4 py-2 border rounded-md mb-4"
+                                            value={formData.content}
+                                            onChange={(e) =>
+                                              setFormData({ ...formData, content: e.target.value })
+                                            }
                                         />
                                         <input
                                             type="text"
                                             name="reference"
                                             placeholder="Reference"
                                             className="w-full px-4 py-2 border rounded-md mb-4"
+                                            value={formData.reference}
+                                            onChange={(e) =>
+                                              setFormData({ ...formData, reference: e.target.value })
+                                            }
                                         />
                                         <input
                                             type="text"
                                             name="img"
                                             placeholder="Image URL"
                                             className="w-full px-4 py-2 border rounded-md mb-8"
+                                            value={formData.img}
+                                            onChange={(e) =>
+                                              setFormData({ ...formData, img: e.target.value })
+                                            }
                                         />
                                         <div className="flex flex-row justify-center items-center">
                                             <button
@@ -117,6 +189,7 @@ const Profile = ({ profile }) => {
                                                 {article.title} {/* Use article.title to get the title */}
                                             </Link>
                                             <button
+                                                onClick={() => deleteArticle(article.id)}
                                                 className="bg-red-500 hover:bg-red-700 text-white mt-4 px-6 py-2 rounded-md"
                                             >
                                                 Delete
