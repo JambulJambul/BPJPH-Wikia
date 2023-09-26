@@ -48,11 +48,15 @@ const Article = () => {
                   alt={`References ${reference}`}
                   className="w-8 h-8 rounded-full mr-4"
                 />
-                <h1 className="text-gray-600 font-medium">Admin</h1>
+                <h1 className="text-gray-600 font-medium">
+                  Admin
+                </h1>
               </div>
             )}
             <div className="w-full my-8 tracking-wider">
-              <h2 className="text-xl text-gray-800 mb-4 font-semibold">Definisi</h2>
+              <h2 className="text-xl text-gray-800 mb-4 font-semibold">
+                Definisi
+              </h2>
               <hr />
               <p className="text-gray-600 text-2xl">
                 <br />
@@ -61,7 +65,9 @@ const Article = () => {
               </p>
             </div>
             <div className="w-full my-8 tracking-wider">
-              <h2 className="text-xl text-gray-800 mb-4 font-semibold">Referensi</h2>
+              <h2 className="text-xl text-gray-800 mb-4 font-semibold">
+                Referensi
+              </h2>
               <hr />
               <p className="text-gray-600">
                 <br />
