@@ -1,12 +1,13 @@
-// eslint-disable-next-line no-unused-vars
+/* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from 'react'
 import { useParams, Link } from 'react-router-dom'
-import articles from '../data/articles.json'
+import articlesData from '../../articles.json' // Updated import path
 import { Loader } from '../components'
 
 const Article = () => {
-
+  
   const [isLoading, setIsLoading] = useState(true)
+  const { id } = useParams()
 
   useEffect(() => {
     setTimeout(() => {
@@ -14,12 +15,13 @@ const Article = () => {
     }, 1500)
   }, [])
 
-  const { id } = useParams()
-
-  const article = articles.find((article) => article.id === parseInt(id, 10))
+  // Find the article with the matching ID from the imported JSON data
+  const article = articlesData.articles.find(
+    (article) => article.id === parseInt(id, 10)
+  )
 
   if (!article) {
-    return <div> Article not found. </div>;
+    return <div>Article not found.</div>
   }
 
   const { title, content, reference, img } = article
@@ -46,15 +48,11 @@ const Article = () => {
                   alt={`References ${reference}`}
                   className="w-8 h-8 rounded-full mr-4"
                 />
-                <h1 className="text-gray-600 font-medium">
-                  Admin
-                </h1>
+                <h1 className="text-gray-600 font-medium">Admin</h1>
               </div>
             )}
             <div className="w-full my-8 tracking-wider">
-              <h2 className="text-xl text-gray-800 mb-4 font-semibold">
-                Definisi
-              </h2>
+              <h2 className="text-xl text-gray-800 mb-4 font-semibold">Definisi</h2>
               <hr />
               <p className="text-gray-600 text-2xl">
                 <br />
@@ -63,9 +61,7 @@ const Article = () => {
               </p>
             </div>
             <div className="w-full my-8 tracking-wider">
-              <h2 className="text-xl text-gray-800 mb-4 font-semibold">
-                Referensi
-              </h2>
+              <h2 className="text-xl text-gray-800 mb-4 font-semibold">Referensi</h2>
               <hr />
               <p className="text-gray-600">
                 <br />

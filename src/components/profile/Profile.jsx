@@ -23,7 +23,7 @@ const Profile = ({ profile }) => {
 
   const fetchArticles = async () => {
     try {
-      const response = await axios.get('/api/articles')
+      const response = await axios.get('http://localhost:3000/articles')
       setArticles(response.data)
     } catch (error) {
       console.error('Error fetching articles:', error)
@@ -32,7 +32,7 @@ const Profile = ({ profile }) => {
 
   const createArticle = async () => {
     try {
-      await axios.post('/api/articles', formData)
+      await axios.post('http://localhost:3000/articles', formData)
       // Clear the form data or update state as needed
       setFormData({
         title: '',
@@ -49,7 +49,7 @@ const Profile = ({ profile }) => {
 
   const deleteArticle = async (articleId) => {
     try {
-      await axios.delete(`/api/articles/${articleId}`)
+      await axios.delete(`http://localhost:3000/articles/${articleId}`)
       // Fetch articles again to update the list
       fetchArticles()
     } catch (error) {

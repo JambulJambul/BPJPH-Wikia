@@ -1,11 +1,9 @@
-/* eslint-disable react/prop-types */
-// eslint-disable-next-line no-unused-vars
+/* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react'
-import articles from '../data/articles.json'
+import articlesData from '../../articles.json'
 import { ArticleCard, Loader, Pagination } from '../components'
 
 const Dictionary = () => {
-
   const [searchTerm, setSearchTerm] = useState('')
   const [currentPage, setCurrentPage] = useState(1)
   const [isLoading, setIsLoading] = useState(true)
@@ -13,9 +11,10 @@ const Dictionary = () => {
   const articlesPerPage = 4
 
   useEffect(() => {
+    // Simulate loading delay for demonstration purposes
     setTimeout(() => {
-      setIsLoading(false) // Set loading state to false when data is ready
-    }, 3000)
+      setIsLoading(false)
+    }, 2000)
   }, [])
 
   const handleSearchChange = (event) => {
@@ -23,14 +22,13 @@ const Dictionary = () => {
     setCurrentPage(1)
   }
 
-  const filteredArticles = articles.filter((article) =>
+  const filteredArticles = articlesData.articles.filter((article) =>
     article.title.toLowerCase().includes(searchTerm.toLowerCase())
   )
 
   const indexOfLastArticle = currentPage * articlesPerPage
-
   const indexOfFirstArticle = indexOfLastArticle - articlesPerPage
-
+  
   const currentArticles = filteredArticles.slice(
     indexOfFirstArticle,
     indexOfLastArticle
