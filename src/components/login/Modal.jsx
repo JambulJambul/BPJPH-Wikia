@@ -12,15 +12,15 @@ const Modal = ({ isOpen, onClose }) => {
     const navigate = useNavigate()
   
     const handleLogin = () => {
+        
+        const adminEmail = process.env.REACT_APP_ADMIN_EMAIL
+        const adminPassword = process.env.REACT_APP_ADMIN_PASSWORD
 
-      const adminEmail = process.env.REACT_APP_ADMIN_EMAIL
-      const adminPassword = process.env.REACT_APP_ADMIN_PASSWORD
-
-    if (email === adminEmail && password === adminPassword) {
-        navigate('/my-profile')
-    } else {
-      alert('Invalid email or password')
-    }
+        if (email === adminEmail && password === adminPassword) {
+            navigate('/my-profile')
+        } else {
+        alert('Invalid email or password')
+        }
 
       onClose()
     }
