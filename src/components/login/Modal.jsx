@@ -1,26 +1,18 @@
-/* eslint-disable no-undef */
 /* eslint-disable react/prop-types */
+/* eslint-disable react/no-unknown-property */
 // eslint-disable-next-line no-unused-vars
 import React, { useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
-import { useNavigate } from 'react-router-dom'
 
 const Modal = ({ isOpen, onClose }) => {
 
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
-    const navigate = useNavigate()
   
     const handleLogin = () => {
-
-      const adminEmail = process.env.ADMIN_EMAIL
-      const adminPassword = process.env.ADMIN_PASSWORD
-
-    if (email === adminEmail && password === adminPassword) {
-        navigate('/profile')
-    } else {
-      alert('Invalid email or password')
-    }
+      // Add your login logic here
+      // For simplicity, we'll just alert the entered email and password
+      alert(`Email: ${email}\nPassword: ${password}`)
 
       onClose()
     }
