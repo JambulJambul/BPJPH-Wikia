@@ -17,7 +17,7 @@ const Modal = ({ isOpen, onClose }) => {
       const adminPassword = process.env.ADMIN_PASSWORD
 
     if (email === adminEmail && password === adminPassword) {
-        navigate.push('/profile')
+        navigate('/profile')
     } else {
       alert('Invalid email or password')
     }
