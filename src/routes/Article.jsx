@@ -1,11 +1,11 @@
-/* eslint-disable no-unused-vars */
+// eslint-disable-next-line no-unused-vars
 import React, { useEffect, useState } from 'react'
+import { motion } from 'framer-motion'
 import { useParams, Link } from 'react-router-dom'
 import articlesData from '../../articles.json' // Updated import path
 import { Loader } from '../components'
 
 const Article = () => {
-  
   const [isLoading, setIsLoading] = useState(true)
   const { id } = useParams()
 
@@ -32,17 +32,32 @@ const Article = () => {
         <Loader />
       ) : (
         <>
-          <div className="w-full p-6 mx-auto">
+          <motion.div
+            className="w-full p-6 mx-auto"
+            initial={{ opacity: 0, x: 100 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 1.0 }}
+          >
             <div className="flex justify-between items-center mb-4">
-              <h2 className="text-4xl font-bold tracking-wider font-['Ysabeau Office']">
+              <motion.h2
+                className="text-4xl font-bold tracking-wider font-['Ysabeau Office']"
+                initial={{ x: 100 }}
+                animate={{ x: 0 }}
+                transition={{ duration: 2.0 }}
+              >
                 {title}
-              </h2>
+              </motion.h2>
               <Link to="/" className="text-2xl text-blue-500 hover:underline">
                 Go Back
               </Link>
             </div>
             {img && (
-              <div className="flex items-center my-8">
+              <motion.div
+                className="flex items-center my-8"
+                initial={{ x: 100 }}
+                animate={{ x: 0 }}
+                transition={{ duration: 2.0 }}
+              >
                 <img
                   src={img}
                   alt={`References ${reference}`}
@@ -51,20 +66,30 @@ const Article = () => {
                 <h1 className="text-gray-600 font-medium">
                   Admin
                 </h1>
-              </div>
+              </motion.div>
             )}
-            <div className="w-full my-8 tracking-wider">
+            <motion.div
+              className="w-full my-8 tracking-wider"
+              initial={{ x: 100 }}
+              animate={{ x: 0 }}
+              transition={{ duration: 3.0 }}
+            >
               <h2 className="text-xl text-gray-800 mb-4 font-semibold">
                 Definisi
               </h2>
               <hr />
-              <p className="text-gray-600 text-2xl">
+              <p className="text-gray-600">
                 <br />
                 {content}
                 <br />
               </p>
-            </div>
-            <div className="w-full my-8 tracking-wider">
+            </motion.div>
+            <motion.div
+              className="w-full my-8 tracking-wider"
+              initial={{ x: 100 }}
+              animate={{ x: 0 }}
+              transition={{ duration: 4.0 }}
+            >
               <h2 className="text-xl text-gray-800 mb-4 font-semibold">
                 Referensi
               </h2>
@@ -74,8 +99,8 @@ const Article = () => {
                 {reference}
                 <br />
               </p>
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
         </>
       )}
     </div>
