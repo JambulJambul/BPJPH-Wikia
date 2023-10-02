@@ -1,51 +1,60 @@
 /* eslint-disable react/no-unknown-property */
 // eslint-disable-next-line no-unused-vars
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React, { useState } from 'react'
 
-const Modal = () => {
+const Modal = ({ isOpen, onClose }) => {
 
-  const [username, password] = []
-
-  return (
-    <>
-        <div className="flex flex-col w-full h-full justify-center items-center mt-[10vh] text-center">
-            <h1 className="mb-5 text-gray-900 font-mono font-bold text-5xl">
-                BPJPH WIKIA
-            </h1>
-            <button className="flex items-center my-4 justify-center transition ease-in-out delay-50 px-5 py-2.5 space-x-2 bg-white border border-slate-600 rounded-md hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-600 focus:ring-opacity-50">
-                <svg viewBox="0 0 48 48" width="24" height="24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="#000000"><g id="SVGRepo_bgCarrier" strokeWidth="0"></g><g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g><g id="SVGRepo_iconCarrier"> <title>Google-color</title> <desc>Created with Sketch.</desc> <defs> </defs> <g id="Icons" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd"> <g id="Color-" transform="translate(-401.000000, -860.000000)"> <g id="Google" transform="translate(401.000000, 860.000000)"> <path d="M9.82727273,24 C9.82727273,22.4757333 10.0804318,21.0144 10.5322727,19.6437333 L2.62345455,13.6042667 C1.08206818,16.7338667 0.213636364,20.2602667 0.213636364,24 C0.213636364,27.7365333 1.081,31.2608 2.62025,34.3882667 L10.5247955,28.3370667 C10.0772273,26.9728 9.82727273,25.5168 9.82727273,24" id="Fill-1" fill="#FBBC05"> </path> <path d="M23.7136364,10.1333333 C27.025,10.1333333 30.0159091,11.3066667 32.3659091,13.2266667 L39.2022727,6.4 C35.0363636,2.77333333 29.6954545,0.533333333 23.7136364,0.533333333 C14.4268636,0.533333333 6.44540909,5.84426667 2.62345455,13.6042667 L10.5322727,19.6437333 C12.3545909,14.112 17.5491591,10.1333333 23.7136364,10.1333333" id="Fill-2" fill="#EB4335"> </path> <path d="M23.7136364,37.8666667 C17.5491591,37.8666667 12.3545909,33.888 10.5322727,28.3562667 L2.62345455,34.3946667 C6.44540909,42.1557333 14.4268636,47.4666667 23.7136364,47.4666667 C29.4455,47.4666667 34.9177955,45.4314667 39.0249545,41.6181333 L31.5177727,35.8144 C29.3995682,37.1488 26.7323182,37.8666667 23.7136364,37.8666667" id="Fill-3" fill="#34A853"> </path> <path d="M46.1454545,24 C46.1454545,22.6133333 45.9318182,21.12 45.6113636,19.7333333 L23.7136364,19.7333333 L23.7136364,28.8 L36.3181818,28.8 C35.6879545,31.8912 33.9724545,34.2677333 31.5177727,35.8144 L39.0249545,41.6181333 C43.3393409,37.6138667 46.1454545,31.6490667 46.1454545,24" id="Fill-4" fill="#4285F4"> </path> </g> </g> </g> </g></svg>
-                <span className="text-gray-700 font-medium">
-                    Continue with Google
-                </span>
-            </button>
-            <span className="my-2 text-gray-900">
-                Or
-            </span>
-            <div>
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
+  
+    const handleLogin = () => {
+      // Add your login logic here
+      // For simplicity, we'll just alert the entered email and password
+      alert(`Email: ${email}\nPassword: ${password}`)
+      
+      onClose()
+    }
+  
+    return (
+      <>
+        {isOpen && (
+          <div className="fixed inset-0 flex items-center justify-center z-50">
+            <div className="fixed inset-0 bg-black opacity-40"></div>
+            <div className="bg-white rounded-lg p-6 z-50">
+              <h2 className="text-2xl font-semibold mb-4">Login</h2>
+              <div className="mb-4">
                 <input
-                    type="text"
-                    placeholder="Username"
-                    value={username} // Bind value to state
-                    className="w-full px-6 py-3 border border-slate-600 rounded-lg font-medium"
+                  type="email"
+                  placeholder="Email"
+                  className="w-full px-3 py-2 border rounded-lg"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                 />
+              </div>
+              <div className="mb-4">
                 <input
-                    type="password"
-                    placeholder="Password"
-                    value={password} // Bind value to state
-                    className="w-full px-6 py-3 my-4 border border-slate-600 rounded-lg font-medium"
+                  type="password"
+                  placeholder="Password"
+                  className="w-full px-3 py-2 border rounded-lg"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                 />
-                <Link to="/my-profile">                   
-                    <button className="bg-slate-500 hover:bg-slate-700 text-white text-base rounded-lg py-2.5 px-5 my-4 transition-colors w-full text-[19px]">
-                        Log In
-                    </button>
-                </Link>
+              </div>
+              <button
+                className="bg-blue-500 text-white rounded-lg px-4 py-2 hover:bg-blue-600"
+                onClick={handleLogin}
+              >
+                Login
+              </button>
+              <button
+                className="text-gray-500 hover:text-gray-700 ml-2"
+                onClick={onClose}
+              >
+                Close
+              </button>
             </div>
-            <p className="mb-8 text-center text-[14px]">
-                By clicking continue, you agree to our 
-                    <Link to="/terms" className="text-gray-600"> Terms of Service </Link> and <Link to="/privacy" class="text-gray-600"> Privacy Policy </Link>.
-                </p>
-         </div>
+          </div>
+        )}
     </>
   )
 }

@@ -6,9 +6,9 @@ const Navbar = () => {
   return (
     <>
         <div className="grid w-full justify-center items-center py-5 bg-blue-900">
-            <div className="justify-between text-center mt-8 mb-4 space-x-8">
+            <div className="my-2">
               <Link to="/">
-                <img src='/bpjph-logo.png' alt='BPJPH' className="w-80 m-auto" />
+                <img src='/bpjph-logo.png' alt='BPJPH' className="max-w-full m-auto" />
               </Link>
             </div>
         </div>

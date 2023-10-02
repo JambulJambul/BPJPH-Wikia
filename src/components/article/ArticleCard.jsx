@@ -9,7 +9,7 @@ const ArticleCard = ({ article }) => {
   
     return (
       <>
-        <Link to={`/article/${id}`}>
+        <Link to={`/article/${id}`} className="w-full">
           <div className="max-w-full mx-auto p-4 bg-white shadow-md rounded-md mb-4 ">
             <h2 className="text-4xl font-bold mb-2 tracking-wider font-['Poppins']">
               {title}

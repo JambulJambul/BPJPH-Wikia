@@ -27,12 +27,12 @@ const Article = () => {
   const { title, content, reference, img } = article
 
   return (
-    <div className="flex flex-col w-full h-full p-4 justify-center items-center bg-gray-100">
+    <div className="flex flex-col w-full h-full p-4 justify-center items-center">
       {isLoading ? (
         <Loader />
       ) : (
         <>
-          <div className="max-w-full p-6 bg-white shadow-md rounded-md mx-auto">
+          <div className="w-full p-6 mx-auto">
             <div className="flex justify-between items-center mb-4">
               <h2 className="text-4xl font-bold tracking-wider font-['Ysabeau Office']">
                 {title}
