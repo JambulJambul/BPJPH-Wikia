@@ -15,7 +15,7 @@ const ArticleCard = ({ article }) => {
               {title}
             </h2>
             <p className="text-gray-800 pt-6">
-              <span className="font-semibold"> Definisi: </span>
+              <span className="font-semibold mb-2"> Definisi: </span>
               <br />
               {`${content.substring(0, 100)}...`}
             </p>

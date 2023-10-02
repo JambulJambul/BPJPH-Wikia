@@ -4,6 +4,7 @@ import articlesData from '../../articles.json'
 import { ArticleCard, Loader, Pagination } from '../components'
 
 const Dictionary = () => {
+  
   const [searchTerm, setSearchTerm] = useState('')
   const [currentPage, setCurrentPage] = useState(1)
   const [isLoading, setIsLoading] = useState(true)
