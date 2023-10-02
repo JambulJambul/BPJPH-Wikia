@@ -9,11 +9,6 @@ function App() {
 
   const [isModalOpen, setModalOpen] = useState(false)
   const [isButtonLocked, setButtonLocked] = useState(true)
-  const [token, setToken] = useState()
-
-  if(!token) {
-    return <Modal setToken={setToken} />
-  }
 
   const openLoginModal = () => {
     setModalOpen(true)
