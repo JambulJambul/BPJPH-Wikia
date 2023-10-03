@@ -15,6 +15,7 @@
     "framer-motion": "^10.16.4",
     "json-server": "^0.17.3",
     "react": "^18.2.0",
+    "react-auth-kit": "^2.12.7",
     "react-dom": "^18.2.0",
     "react-icons": "^4.11.0",
     "react-modal": "^3.16.1",
