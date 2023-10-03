@@ -47,7 +47,7 @@ const Article = () => {
               >
                 {title}
               </motion.h2>
-              <Link to="/" className="text-2xl text-blue-500 hover:underline">
+              <Link to="/" className="text-blue-500 hover:underline">
                 Go Back
               </Link>
             </div>
