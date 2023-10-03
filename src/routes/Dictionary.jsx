@@ -27,6 +27,8 @@ const Dictionary = () => {
     article.title.toLowerCase().includes(searchTerm.toLowerCase())
     ||
     article.content.toLowerCase().includes(searchTerm.toLowerCase())
+    ||
+    article.reference.toLowerCase().includes(searchTerm.toLowerCase())
   )
 
   const indexOfLastArticle = currentPage * articlesPerPage
