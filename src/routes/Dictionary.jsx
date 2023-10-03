@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react'
+import { AiOutlineSearch } from 'react-icons/ai'
 import articlesData from '../../articles.json'
 import { ArticleCard, Loader, Pagination } from '../components'
 
@@ -24,6 +25,8 @@ const Dictionary = () => {
 
   const filteredArticles = articlesData.articles.filter((article) =>
     article.title.toLowerCase().includes(searchTerm.toLowerCase())
+    ||
+    article.content.toLowerCase().includes(searchTerm.toLowerCase())
   )
 
   const indexOfLastArticle = currentPage * articlesPerPage
@@ -43,12 +46,15 @@ const Dictionary = () => {
       ) : (
         <>
           <div className="flex w-full justify-center items-center p-4">
+            <div className="text-gray-600">
+              <AiOutlineSearch size={30} />
+            </div>
             <input
               type="text"
               value={searchTerm}
               onChange={handleSearchChange}
-              placeholder="Search by Title"
-              className="max-w-full sm:w-96 p-3 my-8 ml-3 sm:ml-6 rounded-md transition-width duration-300"
+              placeholder="Search something . . ."
+              className="w-full sm:w-96 p-3 my-8 ml-3 sm:ml-6 rounded-md transition-width duration-300"
             />
           </div>
           <div className="flex flex-col gap-4">
