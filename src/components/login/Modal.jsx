@@ -3,16 +3,14 @@
 // eslint-disable-next-line no-unused-vars
 import React, { useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
-import { useNavigate } from 'react-router-dom'
 
 const Modal = ({ isOpen, onClose }) => {
 
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
-    const navigate = useNavigate()
   
     const handleLogin = () => {
-      alert('Invalid email or password')
+        alert(`Email: ${email}\nPassword: ${password}`)
       onClose()
     }
   
