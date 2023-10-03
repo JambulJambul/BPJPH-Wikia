@@ -10,7 +10,8 @@ const Modal = ({ isOpen, onClose }) => {
     const [password, setPassword] = useState('')
   
     const handleLogin = () => {
-        alert(`Email: ${email}\nPassword: ${password}`)
+      // Add logichere
+      alert(`Email: ${email}\nPassword: ${password}`)
       onClose()
     }
   
