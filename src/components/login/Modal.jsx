@@ -3,7 +3,6 @@
 // eslint-disable-next-line no-unused-vars
 import React, { useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
-import { authenticate } from '../../util/auth'
 
 const Modal = ({ isOpen, onClose }) => {
 
@@ -11,20 +10,9 @@ const Modal = ({ isOpen, onClose }) => {
     const [password, setPassword] = useState('')
   
     const handleLogin = () => {
-
-        const authResult = authenticate(email, password)
         
-        if (authResult.success) {
-
-          alert('Login successful')
-
-          onClose()
-
-          window.open('/my-profile', '_blank')
-          
-        } else {
-          alert('Login failed: ' + authResult.message)
-        }
+        onClose()
+        alert(`Email: ${email}\nPassword: ${password}`)
     }
   
     return (

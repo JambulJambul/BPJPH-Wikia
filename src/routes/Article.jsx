@@ -32,14 +32,14 @@ const Article = () => {
       ) : (
         <>
           <motion.div
-            className="w-full p-6 mx-auto"
+            className="max-w-full p-2 mx-auto"
             initial={{ opacity: 0, x: 100 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 1.5 }}
           >
             <div className="flex justify-between items-center mb-4">
               <motion.h2
-                className="text-4xl font-bold tracking-wider font-['Ysabeau Office']"
+                className="text-3xl sm:text-4xl font-bold tracking-wider font-['Ysabeau Office']"
                 initial={{ x: 100 }}
                 animate={{ x: 0 }}
                 transition={{ duration: 1.5 }}
@@ -73,7 +73,7 @@ const Article = () => {
               animate={{ x: 0 }}
               transition={{ duration: 1.5 }}
             >
-              <h2 className="text-xl text-gray-800 mb-4 font-semibold">
+              <h2 className="text-gray-800 mb-4 font-semibold">
                 Definisi
               </h2>
               <hr />
@@ -89,11 +89,11 @@ const Article = () => {
               animate={{ x: 0 }}
               transition={{ duration: 1.5 }}
             >
-              <h2 className="text-xl text-gray-800 mb-4 font-semibold">
+              <h2 className="text-gray-800 mb-4 font-semibold">
                 Referensi
               </h2>
               <hr />
-              <p className="text-gray-600">
+              <p className="text-xs text-gray-600">
                 <br />
                 {reference}
                 <br />
