@@ -29,60 +29,53 @@
       "img": "https://storage.googleapis.com/kampusmerdeka_kemdikbud_go_id/mitra/mitra_d7cb3827-747a-483f-8cc5-c5b032e79e46.png"
     },
     {
-      "id": 4,
+      "id": 5,
       "title": "Catering",
       "content": "Menyiapkan dan menyajikan makanan untuk umum.",
       "reference": "https://cateringmami.com/pengertian-catering/",
       "img": "https://cateringmami.com/wp-content/uploads/2020/04/logo-catering-mami-terbaru-1.png.webp"
     },
     {
-      "id": 5,
+      "id": 6,
       "title": "Dalil",
       "content": "Keterangan yang dijadikan bukti atau alasan suatu kebenaran (terutama berdasarkan ayat Alquran).",
       "reference": "https://kbbi.web.id/dalil",
       "img": "https://pbsi.uad.ac.id/wp-content/uploads/KBBI.png"
     },
     {
-      "id": 6,
+      "id": 7,
       "title": "Email",
       "content": "Electronic mail atau surat elektronik berfungsi sebagai alat pengirim pesan melalui perantara teknologi komputer, laptop dan smartphone yang terhubung dengan jaringan internet.",
       "reference": "https://salamadian.com/pengertian-email-surat-elektronik/",
       "img": "https://salamadian.com/wp-content/uploads/2019/06/cropped-6bc767d9d8f3cc3211db1b9c914b91bf-leaves-logo-green-companies.jpg"
     },
     {
-      "id": 7,
+      "id": 8,
       "title": "Fatwa",
       "content": "Suatu pandangan sesuatu hukum Islam yang dikeluarkan oleh seorang mufti bertauliah.",
       "reference": "https://arti-definisi-pengertian.info/pengertian-fatwa/",
       "img": "https://arti-definisi-pengertian.info/wp-content/themes/BorderSEOv1/img/favicon.ico"
     },
     {
-      "id": 8,
+      "id": 9,
       "title": "GMP",
       "content": "Good Manufacturing Practice; suatu prosedur untuk menghasilkan produk yang nantinya akan dijual ke pasar.",
       "reference": "https://disnak.sumbarprov.go.id",
       "img": "https://disnak.sumbarprov.go.id/theme/assets/images/favicon.ico"
     },
     {
-      "id": 9,
+      "id": 10,
       "title": "Halal",
       "content": "Istilah untuk sesuatu yang boleh dilakukan, boleh dimakan, boleh diminum, atau boleh digunakan dalam Islam.",
       "reference": "https://www.halalmuibali.or.id",
       "img": "https://www.halalmuibali.or.id/wp-content/uploads/2017/03/Logo-Halal-MUI.png"
     },
     {
-      "id": 10,
+      "id": 11,
       "title": "Delos-343",
       "content": "M. Fachry Dwi Handoko; I am the main developer of this project ~ frontend developer, UI/UX designer, coding teacher.",
       "reference": "https://github.com/Delos-343",
       "img": "https://avatars.githubusercontent.com/u/87126965?v=4"
-    },
-    {
-      "title": "Isu",
-      "content": "The First Civilization",
-      "reference": "We simply . . . came before.",
-      "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Apple_of_Eden.svg/2048px-Apple_of_Eden.svg.png",
-      "id": 11
     }
   ]
 }
