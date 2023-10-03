@@ -36,7 +36,7 @@ function App() {
         <Route path="/my-profile" element={<MyProfile />} />
       </Routes>
       <button
-        className={`fixed bottom-8 right-6 bg-blue-500 text-white rounded-full p-3 transition-transform transform hover:scale-105 hover:-translate-y-4 hover:-translate-x-6 hover:shadow-md ${
+        className={`fixed bottom-8 right-6 bg-blue-500 text-white rounded-full p-3 transition-transform transform active:scale-105 active:-translate-y-4 active:-translate-x-6 hover:shadow-md ${
           isButtonLocked ? 'cursor-pointer' : 'cursor-default'
         }`}
         onClick={handleButtonClick}

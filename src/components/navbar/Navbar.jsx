@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 const Navbar = () => {
   return (
     <>
-        <div className="grid w-full justify-center items-center py-5 bg-blue-900">
+        <div className="grid w-full justify-center items-center p-5 bg-blue-900">
             <div className="my-2">
               <Link to="/">
                 <img src='/bpjph-logo.png' alt='BPJPH' className="max-w-full m-auto" />

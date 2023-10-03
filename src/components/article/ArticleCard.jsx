@@ -14,15 +14,15 @@ const ArticleCard = ({ article }) => {
         opacity: 1,
         y: 0,
         transition: {
-          duration: 2.0, // Adjust the duration as needed
-          ease: "easeOut", // Adjust the easing function as needed
+          duration: 2.0,
+          ease: "easeOut",
         },
       },
     }
   
     return (
       <>
-        <Link to={`/article/${id}`} className="w-full">
+        <Link to={`/article/${id}`}>
           <AnimatePresence>
             <motion.div
               className="max-w-full mx-auto p-4 bg-white shadow-md rounded-md mb-4 "
@@ -33,8 +33,8 @@ const ArticleCard = ({ article }) => {
               <h2 className="text-3xl font-bold mb-2 tracking-wider font-['Poppins']">
                 {title}
               </h2>
-              <p className="text-gray-800 pt-6">
-                <span className="font-semibold mb-4"> Definisi: </span>
+              <p className="text-gray-700 pt-6">
+                <span className="text-gray-800 font-semibold mb-4"> Definisi: </span>
                 <br />
                 {`${content.substring(0, 100)}...`}
               </p>
