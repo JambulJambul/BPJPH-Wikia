@@ -3,6 +3,7 @@
 // eslint-disable-next-line no-unused-vars
 import React, { useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
+import { authenticate } from '../../util/auth'
 
 const Modal = ({ isOpen, onClose }) => {
 
@@ -10,9 +11,20 @@ const Modal = ({ isOpen, onClose }) => {
     const [password, setPassword] = useState('')
   
     const handleLogin = () => {
-      // Add logichere
-      alert(`Email: ${email}\nPassword: ${password}`)
-      onClose()
+
+        const authResult = authenticate(email, password)
+        
+        if (authResult.success) {
+
+          alert('Login successful')
+
+          onClose()
+
+          window.open('/my-profile', '_blank')
+          
+        } else {
+          alert('Login failed: ' + authResult.message)
+        }
     }
   
     return (

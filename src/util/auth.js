@@ -1,7 +1,7 @@
 /* eslint-disable no-undef */
 const jwt = require('jsonwebtoken');
 
-const secretKey = process.env.REACT_APP_JWT_SECRET || 'yourSecretKey'; // Replace with your actual secret key
+const secretKey = process.env.REACT_APP_JWT_SECRET;
 const adminEmail = process.env.REACT_APP_ADMIN_EMAIL;
 const adminPassword = process.env.REACT_APP_ADMIN_PASSWORD;
 
