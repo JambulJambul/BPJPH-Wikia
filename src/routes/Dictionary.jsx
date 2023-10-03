@@ -12,7 +12,6 @@ const Dictionary = () => {
   const articlesPerPage = 4
 
   useEffect(() => {
-    // Simulate loading delay for demonstration purposes
     setTimeout(() => {
       setIsLoading(false)
     }, 2000)

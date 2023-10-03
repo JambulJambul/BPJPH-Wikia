@@ -10,7 +10,7 @@ const MyProfile = () => {
 
   useEffect(() => {
     setTimeout(() => {
-      setIsLoading(false) // Set loading state to false when data is ready
+      setIsLoading(false)
     }, 1500)
   }, [])
 

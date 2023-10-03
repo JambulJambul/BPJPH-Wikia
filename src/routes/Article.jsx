@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 import { useParams, Link } from 'react-router-dom'
-import articlesData from '../../articles.json' // Updated import path
+import articlesData from '../../articles.json'
 import { Loader } from '../components'
 
 const Article = () => {
@@ -11,11 +11,10 @@ const Article = () => {
 
   useEffect(() => {
     setTimeout(() => {
-      setIsLoading(false) // Set loading state to false when data is ready
+      setIsLoading(false)
     }, 1500)
   }, [])
 
-  // Find the article with the matching ID from the imported JSON data
   const article = articlesData.articles.find(
     (article) => article.id === parseInt(id, 10)
   )

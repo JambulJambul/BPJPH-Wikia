@@ -37,15 +37,15 @@ const Profile = ({ profile }) => {
   const createArticle = async () => {
     try {
       await axios.post('http://localhost:3000/articles', formData)
-      // Clear the form data or update state as needed
       setFormData({
         title: '',
         content: '',
         reference: '',
         img: '',
       })
-      // Fetch articles again to update the list
-      fetchArticles();
+
+      fetchArticles()
+
     } catch (error) {
       console.error('Error creating article:', error)
     }
@@ -54,15 +54,15 @@ const Profile = ({ profile }) => {
   const deleteArticle = async (articleId) => {
     try {
       await axios.delete(`http://localhost:3000/articles/${articleId}`)
-      // Fetch articles again to update the list
+
       fetchArticles()
+
     } catch (error) {
       console.error('Error deleting article:', error)
     }
   }
 
   useEffect(() => {
-    // Fetch articles when the component mounts
     fetchArticles()
   }, [])
 
@@ -71,10 +71,8 @@ const Profile = ({ profile }) => {
     setShowAllArticles(!showAllArticles)
 
     if (showAllArticles) {
-      // If currently showing all articles, display only 5 items
       setDisplayedArticlesCount(5)
     } else {
-      // If not showing all articles, display all available articles
       setDisplayedArticlesCount(articles.length)
     }
   }
@@ -199,15 +197,15 @@ const Profile = ({ profile }) => {
                                     <div className="w-full" key={article.id}>
                                         <div className="flex flex-row w-full mt-5 pr-6 justify-between items-center overflow-hidden">
                                             <Link
-                                                to={`/article/${article.id}`} // Replace :id with the actual article ID
+                                                to={`/article/${article.id}`}
                                                 className="w-full border-t border-gray-100 text-left text-gray-600 py-4 pl-6 pr-3 block hover:bg-gray-100 transition duration-150"
                                             >
                                                 <img
-                                                    src={article.img} // Use article.img to get the image URL
+                                                    src={article.img}
                                                     alt={`References ${article.reference}`}
                                                     className="rounded-full h-6 shadow-md inline-block mr-4"
                                                 />
-                                                {article.title} {/* Use article.title to get the title */}
+                                                {article.title}
                                             </Link>
                                             <button
                                                 onClick={() => deleteArticle(article.id)}
