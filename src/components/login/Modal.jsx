@@ -9,10 +9,24 @@ const Modal = ({ isOpen, onClose }) => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
   
-    const handleLogin = () => {
+    const handleLogin = async () => {
+
+        try {
+            await auth.signInWithEmailAndPassword(email, password)
+
+            alert('Login successful')
+            onClose()
+
+            window.open('/my-profile', '_blank')
+            
+        } catch (error) {
+            alert('Login failed: ' + error.message)
+        }
         
-        alert(`Email: ${email}\nPassword: ${password}`)
-        onClose()
+        {/*
+          alert(`Email: ${email}\nPassword: ${password}`)
+          onClose()
+        */}
     }
   
     return (
