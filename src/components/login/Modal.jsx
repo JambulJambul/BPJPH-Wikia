@@ -3,7 +3,7 @@
 // eslint-disable-next-line no-unused-vars
 import React, { useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
-import { auth } from './firebase'
+import { auth } from '../../firebase'
 
 const Modal = ({ isOpen, onClose }) => {
 
@@ -11,13 +11,21 @@ const Modal = ({ isOpen, onClose }) => {
     const [password, setPassword] = useState('')
   
     const handleLogin = async () => {
-        try {
+
+        const adminEmail = process.env.REACT_APP_ADMIN_EMAIL
+        const adminPassword = process.env.REACT_APP_ADMIN_PASSWORD
+    
+        if (email === adminEmail && password === adminPassword) {
+          try {
             await auth.signInWithEmailAndPassword(email, password)
             alert('Login successful')
             onClose()
             window.open('/my-profile', '_blank')
-        } catch (error) {
+          } catch (error) {
             alert('Login failed: ' + error.message)
+          }
+        } else {
+          alert('Login failed: Invalid credentials')
         }
         
         {/*
@@ -80,7 +88,7 @@ const Modal = ({ isOpen, onClose }) => {
                                 </motion.button>
                                 <motion.button
                                     onClick={handleLogout}
-                                    className="flex items-center justify-center flex-none px-3 py-2 md:px-4 md:py-3 border-1 rounded-lg font-medium bg-blue-600 text-gray-100 transition-all duration-300 hover:bg-blue-700 hover:text-white"
+                                    className="flex items-center justify-center flex-none px-3 py-2 md:px-4 md:py-3 border-1 rounded-lg font-mediumtext-red-600 transition-all duration-300 hover:text-red-800"
                                     whileHover={{ scale: 1.05 }}
                                     whileTap={{ scale: 0.95 }}
                                 >
