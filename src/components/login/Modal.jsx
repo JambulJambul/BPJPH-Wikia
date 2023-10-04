@@ -11,8 +11,8 @@ const Modal = ({ isOpen, onClose }) => {
   
     const handleLogin = () => {
         
-        onClose()
         alert(`Email: ${email}\nPassword: ${password}`)
+        onClose()
     }
   
     return (
