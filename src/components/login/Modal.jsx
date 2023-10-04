@@ -3,6 +3,7 @@
 // eslint-disable-next-line no-unused-vars
 import React, { useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
+import { auth } from './firebase'
 
 const Modal = ({ isOpen, onClose }) => {
 
@@ -10,15 +11,11 @@ const Modal = ({ isOpen, onClose }) => {
     const [password, setPassword] = useState('')
   
     const handleLogin = async () => {
-
         try {
             await auth.signInWithEmailAndPassword(email, password)
-
             alert('Login successful')
             onClose()
-
             window.open('/my-profile', '_blank')
-            
         } catch (error) {
             alert('Login failed: ' + error.message)
         }
@@ -28,6 +25,15 @@ const Modal = ({ isOpen, onClose }) => {
           onClose()
         */}
     }
+
+    const handleLogout = async () => {
+        try {
+          await auth.signOut()
+          alert('Logout successful')
+        } catch (error) {
+          alert('Logout failed: ' + error.message)
+        }
+      }
   
     return (
       <>
@@ -71,6 +77,14 @@ const Modal = ({ isOpen, onClose }) => {
                                     whileTap={{ scale: 0.95 }}
                                 >
                                     Login
+                                </motion.button>
+                                <motion.button
+                                    onClick={handleLogout}
+                                    className="flex items-center justify-center flex-none px-3 py-2 md:px-4 md:py-3 border-1 rounded-lg font-medium bg-blue-600 text-gray-100 transition-all duration-300 hover:bg-blue-700 hover:text-white"
+                                    whileHover={{ scale: 1.05 }}
+                                    whileTap={{ scale: 0.95 }}
+                                >
+                                    Logout
                                 </motion.button>
                                 <div className="flex justify-center items-center">
                                     <span className="w-full border border-black"></span>
