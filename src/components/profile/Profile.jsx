@@ -84,7 +84,7 @@ const Profile = ({ profile }) => {
 
   return (
     <>
-        <div className="container mx-auto my-60">
+        <div className="container mx-auto my-32">
             <div>
                 <div className="bg-white relative shadow rounded-lg w-5/6 md:w-5/6  lg:w-4/6 xl:w-3/6 mx-auto">
                     <div className="flex justify-center">
@@ -206,11 +206,23 @@ const Profile = ({ profile }) => {
                                                     alt={`References ${article.references}`}
                                                     className="rounded-full h-6 shadow-md inline-block mr-4"
                                                 />
-                                                {article.title}
+                                                <span className="font-bold text-lg">
+                                                  {article.title}
+                                                </span>
+                                                <div className="flex flex-col mt-4">
+                                                  <span className="text-gray-500 text-xs">
+                                                    {article.content.substring(0, 50)} . . .
+                                                  </span>
+                                                </div>
                                             </Link>
                                             <button
+                                                className="text-blue-500 hover:text-blue-700 mt-4 px-6 py-2 rounded-md"
+                                            >
+                                                Edit
+                                            </button>
+                                            <button
                                                 onClick={() => deleteArticle(article.id)}
-                                                className="bg-red-500 hover:bg-red-700 text-white mt-4 px-6 py-2 rounded-md"
+                                                className="text-red-500 hover:text-red-700 mt-4 px-6 py-2 rounded-md"
                                             >
                                                 Delete
                                             </button>
