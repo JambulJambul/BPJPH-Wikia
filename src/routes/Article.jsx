@@ -67,7 +67,9 @@ const Article = () => {
               alt={`References ${references}`}
               className="w-8 h-8 rounded-full mr-4"
             />
-            <h1 className="text-gray-600 font-medium">Admin</h1>
+            <h1 className="text-gray-600 font-medium">
+              Admin
+            </h1>
           </motion.div>
         )}
         <motion.div
@@ -76,7 +78,9 @@ const Article = () => {
           animate={{ x: 0 }}
           transition={{ duration: 1.5 }}
         >
-          <h2 className="text-gray-800 mb-4 font-semibold">Definisi</h2>
+          <h2 className="text-gray-800 mb-4 font-semibold">
+            Definisi
+          </h2>
           <hr />
           <p className="text-gray-600">
             <br />
@@ -90,7 +94,9 @@ const Article = () => {
           animate={{ x: 0 }}
           transition={{ duration: 1.5 }}
         >
-          <h2 className="text-gray-800 mb-4 font-semibold">Referensi</h2>
+          <h2 className="text-gray-800 mb-4 font-semibold">
+            Referensi
+          </h2>
           <hr />
           <p className="text-xs text-gray-600">
             <br />

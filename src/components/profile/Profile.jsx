@@ -189,7 +189,7 @@ const Profile = ({ profile }) => {
                                             className="w-full px-4 py-2 border rounded-md mb-4"
                                             value={formData.reference}
                                             onChange={(e) =>
-                                              setFormData({ ...formData, reference: e.target.value })
+                                              setFormData({ ...formData, references: e.target.value })
                                             }
                                         />
                                         <input
@@ -316,11 +316,11 @@ const Profile = ({ profile }) => {
                                         name="reference"
                                         placeholder="Reference"
                                         className="w-full px-4 py-2 border rounded-md mb-4"
-                                        value={editedArticle.reference}
+                                        value={editedArticle.references}
                                         onChange={(e) =>
                                           setEditedArticle({
                                             ...editedArticle,
-                                            reference: e.target.value,
+                                            references: e.target.value,
                                           })
                                         }
                                       />
