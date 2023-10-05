@@ -153,7 +153,7 @@ const Profile = ({ profile }) => {
                         {activeTab === 'create' && (
                             <>
                                 <div className="mt-4 p-4 border border-gray-300 rounded-md bg-white">
-                                    <h1 className="text-3xl text-gray-700 text-center my-6">
+                                    <h1 className="text-xl text-gray-700 text-center my-6">
                                         Create a post
                                     </h1>
                                     <form
@@ -216,7 +216,7 @@ const Profile = ({ profile }) => {
                         )}
                         {activeTab === 'edit' && (
                             <>
-                                <h1 className="text-3xl text-gray-700 text-center my-6">
+                                <h1 className="text-xl text-gray-700 text-center my-6">
                                     Manage your posts
                                 </h1>
                                 {articles.slice(0, displayedArticlesCount).map((article) => (
@@ -281,7 +281,7 @@ const Profile = ({ profile }) => {
                                 {/* Render the edit form when editMode is true */}
                                 {editMode && editedArticle && (
                                   <div className="mt-4 p-4 border border-gray-300 rounded-md bg-white">
-                                    <h1 className="text-3xl text-gray-700 text-center my-6">
+                                    <h1 className="text-xl text-gray-700 text-center my-6">
                                       Edit Article
                                     </h1>
                                     <form onSubmit={updateArticle}>
@@ -363,7 +363,7 @@ const Profile = ({ profile }) => {
                         {activeTab === 'logout' && (
                             <>
                                 <div className="my-4 p-4 border border-gray-300 rounded-md bg-white">
-                                    <h1 className="text-3xl text-gray-700 text-center my-6">
+                                    <h1 className="text-xl text-gray-700 text-center my-6">
                                         Logout?
                                     </h1>
                                 </div>
