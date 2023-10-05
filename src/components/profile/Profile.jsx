@@ -14,17 +14,18 @@ const Profile = ({ profile }) => {
 
   
   const [articles, setArticles] = useState([])
-
   const [showAllArticles, setShowAllArticles] = useState(false)
-
   const [displayedArticlesCount, setDisplayedArticlesCount] = useState(5)
 
   const [formData, setFormData] = useState({
-    title: '',
+      title: '',
     content: '',
     reference: '',
     img: '',
   })
+  
+  const [editMode, setEditMode] = useState(false)
+  const [editedArticle, setEditedArticle] = useState(null)
 
   const fetchArticles = async () => {
     try {
@@ -49,6 +50,30 @@ const Profile = ({ profile }) => {
 
     } catch (error) {
       console.error('Error creating article:', error)
+    }
+  }
+
+  const editArticle = (article) => {
+    setEditMode(true)
+    setEditedArticle(article)
+  }
+
+  const updateArticle = async () => {
+    try {
+      const updatedArticle = await axios.put(
+        `${process.env.REACT_APP_API_URL}/entries/${editedArticle.id}`,
+        editedArticle
+      )
+
+      const updatedArticles = articles.map((article) =>
+        article.id === updatedArticle.id ? updatedArticle : article
+      )
+      setArticles(updatedArticles);
+
+      setEditMode(false)
+      setEditedArticle(null)
+    } catch (error) {
+      console.error('Error updating article:', error)
     }
   }
 
@@ -216,6 +241,7 @@ const Profile = ({ profile }) => {
                                                 </div>
                                             </Link>
                                             <button
+                                                onClick={() => editArticle(article)}
                                                 className="text-blue-500 hover:text-blue-700 mt-4 px-6 py-2 rounded-md"
                                             >
                                                 Edit
@@ -252,6 +278,76 @@ const Profile = ({ profile }) => {
                                         </svg>
                                     </button>
                                 </div>
+                                {/* Render the edit form when editMode is true */}
+                                {editMode && editedArticle && (
+                                  <div className="mt-4 p-4 border border-gray-300 rounded-md bg-white">
+                                    <h1 className="text-3xl text-gray-700 text-center my-6">
+                                      Edit Article
+                                    </h1>
+                                    <form onSubmit={updateArticle}>
+                                      <input
+                                        type="text"
+                                        name="title"
+                                        placeholder="Title"
+                                        className="w-full px-4 py-2 border rounded-md mb-4"
+                                        value={editedArticle.title}
+                                        onChange={(e) =>
+                                          setEditedArticle({
+                                            ...editedArticle,
+                                            title: e.target.value,
+                                          })
+                                        }
+                                      />
+                                      <input
+                                        type="text"
+                                        name="content"
+                                        placeholder="Content"
+                                        className="w-full px-4 py-2 border rounded-md mb-4"
+                                        value={editedArticle.content}
+                                        onChange={(e) =>
+                                          setEditedArticle({
+                                            ...editedArticle,
+                                            content: e.target.value,
+                                          })
+                                        }
+                                      />
+                                      <input
+                                        type="text"
+                                        name="reference"
+                                        placeholder="Reference"
+                                        className="w-full px-4 py-2 border rounded-md mb-4"
+                                        value={editedArticle.reference}
+                                        onChange={(e) =>
+                                          setEditedArticle({
+                                            ...editedArticle,
+                                            reference: e.target.value,
+                                          })
+                                        }
+                                      />
+                                      <input
+                                        type="text"
+                                        name="img"
+                                        placeholder="Image URL"
+                                        className="w-full px-4 py-2 border rounded-md mb-8"
+                                        value={editedArticle.img}
+                                        onChange={(e) =>
+                                          setEditedArticle({
+                                            ...editedArticle,
+                                            img: e.target.value,
+                                          })
+                                        }
+                                      />
+                                      <div className="flex flex-row justify-center items-center">
+                                        <button
+                                          type="submit"
+                                          className="bg-blue-500 hover:bg-blue-700 text-white mt-4 px-6 py-2 rounded-md"
+                                        >
+                                          Update
+                                        </button>
+                                      </div>
+                                    </form>
+                                  </div>
+                                )}
                             </>
                         )}
                         {activeTab === 'logout' && (
