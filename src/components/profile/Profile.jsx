@@ -18,9 +18,9 @@ const Profile = ({ profile }) => {
   const [displayedArticlesCount, setDisplayedArticlesCount] = useState(5)
 
   const [formData, setFormData] = useState({
-      title: '',
+    title: '',
     content: '',
-    reference: '',
+    references: '',
     img: '',
   })
   
@@ -159,7 +159,7 @@ const Profile = ({ profile }) => {
                                     <form
                                         onSubmit={(e) => {
                                             e.preventDefault()
-                                            createArticle()
+                                            createArticle(formData)
                                         }}
                                     >
                                         <input
