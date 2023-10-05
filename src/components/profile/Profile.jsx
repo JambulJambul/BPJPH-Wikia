@@ -15,7 +15,7 @@ const Profile = ({ profile }) => {
   
   const [articles, setArticles] = useState([])
   const [showAllArticles, setShowAllArticles] = useState(false)
-  const [displayedArticlesCount, setDisplayedArticlesCount] = useState(5)
+  const [displayedArticlesCount, setDisplayedArticlesCount] = useState(4)
 
   const [formData, setFormData] = useState({
     title: '',
