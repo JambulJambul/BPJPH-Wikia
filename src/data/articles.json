@@ -1,0 +1,81 @@
+{
+  "articles": [
+    {
+      "id": 1,
+      "title": "Aset",
+      "content": "Sesuatu yang mempunyai nilai tukar; modal kekayaan.",
+      "reference": "https://www.finansialku.com/aset-adalah/",
+      "img": "https://images.crunchbase.com/image/upload/yfhhdlijcnalnqyhmubg"
+    },
+    {
+      "id": 2,
+      "title": "Adil",
+      "content": "Sesuatu yang sama berat, tidak berat sebelah, tidak memihak.",
+      "reference": "https://kumparan.com/pengertian-dan-istilah/pengertian-adil-menurut-ahli-dan-jenis-jenisnya-20SW0fxR0Ec",
+      "img": "https://blue.kumparan.com/image/upload/v1486023171/logo-1200_yos3so.jpg"
+    },
+    {
+      "id": 3,
+      "title": "BPHM",
+      "content": "Balai Pengelolaan Hutan Mangrove adalah unit pelaksana teknis yang memiliki tugas melaksanakan penyusunan rencana dan program, pengembangan kelembagaan, pengelolaan sistem informasi, pemantauan dan evaluasi pengelolaan hutan mangrove.",
+      "reference": "http://balaimangrove.blogspot.com/",
+      "img": "https://1.bp.blogspot.com/-RQxLxw3iprA/VAg1ozyi89I/AAAAAAAAAdg/RP9xAAohQcQ/s1600/logo_kehutanan_bphm.png"
+    },
+    {
+      "id": 4,
+      "title": "BPJPH",
+      "content": "Badan Penyelenggara Jaminan Produk Halal adalah unit eselon I termuda di bawah Kemenag RI untuk penyelenggaraan JPH; menetapkan norma, standar, prosedur, dan kriteria JPH; menerbitkan dan mencabut Sertifikat Halal dan Label Halal pada Produk.",
+      "reference": "https://bpjph.halal.go.id/",
+      "img": "https://storage.googleapis.com/kampusmerdeka_kemdikbud_go_id/mitra/mitra_d7cb3827-747a-483f-8cc5-c5b032e79e46.png"
+    },
+    {
+      "id": 5,
+      "title": "Catering",
+      "content": "Menyiapkan dan menyajikan makanan untuk umum.",
+      "reference": "https://cateringmami.com/pengertian-catering/",
+      "img": "https://cateringmami.com/wp-content/uploads/2020/04/logo-catering-mami-terbaru-1.png.webp"
+    },
+    {
+      "id": 6,
+      "title": "Dalil",
+      "content": "Keterangan yang dijadikan bukti atau alasan suatu kebenaran (terutama berdasarkan ayat Alquran).",
+      "reference": "https://kbbi.web.id/dalil",
+      "img": "https://pbsi.uad.ac.id/wp-content/uploads/KBBI.png"
+    },
+    {
+      "id": 7,
+      "title": "Email",
+      "content": "Electronic mail atau surat elektronik berfungsi sebagai alat pengirim pesan melalui perantara teknologi komputer, laptop dan smartphone yang terhubung dengan jaringan internet.",
+      "reference": "https://salamadian.com/pengertian-email-surat-elektronik/",
+      "img": "https://salamadian.com/wp-content/uploads/2019/06/cropped-6bc767d9d8f3cc3211db1b9c914b91bf-leaves-logo-green-companies.jpg"
+    },
+    {
+      "id": 8,
+      "title": "Fatwa",
+      "content": "Suatu pandangan sesuatu hukum Islam yang dikeluarkan oleh seorang mufti bertauliah.",
+      "reference": "https://arti-definisi-pengertian.info/pengertian-fatwa/",
+      "img": "https://arti-definisi-pengertian.info/wp-content/themes/BorderSEOv1/img/favicon.ico"
+    },
+    {
+      "id": 9,
+      "title": "GMP",
+      "content": "Good Manufacturing Practice; suatu prosedur untuk menghasilkan produk yang nantinya akan dijual ke pasar.",
+      "reference": "https://disnak.sumbarprov.go.id",
+      "img": "https://disnak.sumbarprov.go.id/theme/assets/images/favicon.ico"
+    },
+    {
+      "id": 10,
+      "title": "Halal",
+      "content": "Istilah untuk sesuatu yang boleh dilakukan, boleh dimakan, boleh diminum, atau boleh digunakan dalam Islam.",
+      "reference": "https://www.halalmuibali.or.id",
+      "img": "https://www.halalmuibali.or.id/wp-content/uploads/2017/03/Logo-Halal-MUI.png"
+    },
+    {
+      "id": 11,
+      "title": "Delos-343",
+      "content": "M. Fachry Dwi Handoko; I am the main developer of this project ~ frontend developer, UI/UX designer, coding teacher.",
+      "reference": "https://github.com/Delos-343",
+      "img": "https://avatars.githubusercontent.com/u/87126965?v=4"
+    }
+  ]
+}

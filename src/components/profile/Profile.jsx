@@ -337,12 +337,22 @@ const Profile = ({ profile }) => {
                                           })
                                         }
                                       />
-                                      <div className="flex flex-row justify-center items-center">
+                                      <div className="flex flex-row justify-center items-center space-x-7">
                                         <button
                                           type="submit"
                                           className="bg-blue-500 hover:bg-blue-700 text-white mt-4 px-6 py-2 rounded-md"
                                         >
                                           Update
+                                        </button>
+                                        <button
+                                          type="button"
+                                          className="bg-red-600 hover:bg-red-700 text-white mt-4 px-6 py-2 rounded-md"
+                                          onClick={() => {
+                                            setEditMode(false);
+                                            setEditedArticle(null);
+                                          }}
+                                        >
+                                          Cancel
                                         </button>
                                       </div>
                                     </form>
