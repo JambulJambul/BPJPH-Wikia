@@ -23,7 +23,7 @@ const Article = () => {
     return <div>Article not found.</div>
   }
 
-  const { title, content, reference, img } = article
+  const { title, content, references, img } = article
 
   return (
     <div className="flex flex-col w-full h-full p-4 justify-center items-center">
@@ -59,7 +59,7 @@ const Article = () => {
               >
                 <img
                   src={img}
-                  alt={`References ${reference}`}
+                  alt={`References ${references}`}
                   className="w-8 h-8 rounded-full mr-4"
                 />
                 <h1 className="text-gray-600 font-medium">
@@ -95,7 +95,7 @@ const Article = () => {
               <hr />
               <p className="text-xs text-gray-600">
                 <br />
-                {reference}
+                {references}
                 <br />
               </p>
             </motion.div>
