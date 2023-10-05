@@ -1,21 +1,29 @@
-/* eslint-disable no-unused-vars */
+// eslint-disable-next-line no-unused-vars
 import React, { useState, useEffect } from 'react'
 import { AiOutlineSearch } from 'react-icons/ai'
-import articlesData from '../../articles.json'
+import axios from 'axios' // Import Axios for making API requests
 import { ArticleCard, Loader, Pagination } from '../components'
 
 const Dictionary = () => {
-  
+
   const [searchTerm, setSearchTerm] = useState('')
   const [currentPage, setCurrentPage] = useState(1)
   const [isLoading, setIsLoading] = useState(true)
+  const [articlesData, setArticlesData] = useState([]) // State to hold the fetched data
 
   const articlesPerPage = 4
 
   useEffect(() => {
-    setTimeout(() => {
-      setIsLoading(false)
-    }, 2000)
+    // Fetch data from the API when the component mounts
+    axios.get('https://api-bpjph-testdev.revocreative.net/entries')
+      .then((response) => {
+        setArticlesData(response.data)
+        setIsLoading(false)
+      })
+      .catch((error) => {
+        console.error('Error fetching data:', error)
+        setIsLoading(false)
+      })
   }, [])
 
   const handleSearchChange = (event) => {
@@ -23,17 +31,15 @@ const Dictionary = () => {
     setCurrentPage(1)
   }
 
-  const filteredArticles = articlesData.articles.filter((article) =>
-    article.title.toLowerCase().includes(searchTerm.toLowerCase())
-    ||
-    article.content.toLowerCase().includes(searchTerm.toLowerCase())
-    ||
+  const filteredArticles = articlesData.filter((article) =>
+    article.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    article.content.toLowerCase().includes(searchTerm.toLowerCase()) ||
     article.reference.toLowerCase().includes(searchTerm.toLowerCase())
   )
 
   const indexOfLastArticle = currentPage * articlesPerPage
   const indexOfFirstArticle = indexOfLastArticle - articlesPerPage
-  
+
   const currentArticles = filteredArticles.slice(
     indexOfFirstArticle,
     indexOfLastArticle

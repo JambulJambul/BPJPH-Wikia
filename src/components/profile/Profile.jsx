@@ -27,7 +27,7 @@ const Profile = ({ profile }) => {
 
   const fetchArticles = async () => {
     try {
-      const response = await axios.get('http://localhost:3000/articles')
+      const response = await axios.get('https://api-bpjph-testdev.revocreative.net/entries')
       setArticles(response.data)
     } catch (error) {
       console.error('Error fetching articles:', error)
@@ -36,7 +36,7 @@ const Profile = ({ profile }) => {
 
   const createArticle = async () => {
     try {
-      await axios.post('http://localhost:3000/articles', formData)
+      await axios.post('https://api-bpjph-testdev.revocreative.net/entries', formData)
       setFormData({
         title: '',
         content: '',
@@ -53,7 +53,7 @@ const Profile = ({ profile }) => {
 
   const deleteArticle = async (articleId) => {
     try {
-      await axios.delete(`http://localhost:3000/articles/${articleId}`)
+      await axios.delete(`https://api-bpjph-testdev.revocreative.net/entries/${articleId}`)
 
       fetchArticles()
 
@@ -78,7 +78,7 @@ const Profile = ({ profile }) => {
   }
 
   const logoutMSG = () => {
-    console.log("Aight, blud. Godspeed.")
+    alert("Aight, blud. Godspeed.")
   }
 
   return (
@@ -94,7 +94,7 @@ const Profile = ({ profile }) => {
                             Welcome, {admin}
                         </h1>
                         <div className="my-7 px-6">
-                            <h2  className="text-gray-200 block rounded-lg sm:text-2xl text-center font-medium leading-6 px-6 py-4 bg-gray-900 hover:bg-black hover:text-white">
+                            <h2  className="text-gray-200 block rounded-lg sm:text-xl text-center font-medium leading-6 px-6 py-4 bg-gray-900 hover:bg-black hover:text-white">
                                 {bio}
                             </h2>
                         </div>
@@ -202,7 +202,7 @@ const Profile = ({ profile }) => {
                                             >
                                                 <img
                                                     src={article.img}
-                                                    alt={`References ${article.reference}`}
+                                                    alt={`References ${article.references}`}
                                                     className="rounded-full h-6 shadow-md inline-block mr-4"
                                                 />
                                                 {article.title}

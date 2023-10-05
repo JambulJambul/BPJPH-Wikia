@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom'
 
 const ArticleCard = ({ article }) => {
 
-    const { id, title, content, reference, img } = article
+    const { id, title, content, references, img } = article
 
     const cardVariants = {
       hidden: { opacity: 0, y: -20 },
@@ -42,11 +42,11 @@ const ArticleCard = ({ article }) => {
                 <div className="mt-4 flex items-center">
                   <img
                     src={img}
-                    alt={`Publisher : ${reference}`}
+                    alt={`Publisher : ${references}`}
                     className="w-8 h-8 rounded-full mr-2"
                   />
                   <span className="text-gray-600 font-medium">
-                    {`${reference.substring(0, 50)}...`}
+                    {`${references.substring(0, 50)}...`}
                   </span>
                 </div>
               )}
