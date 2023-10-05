@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 /* eslint-disable react/no-unknown-property */
 /* eslint-disable react/prop-types */
 // eslint-disable-next-line no-unused-vars
@@ -27,7 +28,7 @@ const Profile = ({ profile }) => {
 
   const fetchArticles = async () => {
     try {
-      const response = await axios.get('https://api-bpjph-testdev.revocreative.net/entries')
+      const response = await axios.get(`${process.env.REACT_APP_API_URL}/entries/`)
       setArticles(response.data)
     } catch (error) {
       console.error('Error fetching articles:', error)
@@ -36,7 +37,7 @@ const Profile = ({ profile }) => {
 
   const createArticle = async () => {
     try {
-      await axios.post('https://api-bpjph-testdev.revocreative.net/entries', formData)
+      await axios.post(`${process.env.REACT_APP_API_URL}/entries/`, formData)
       setFormData({
         title: '',
         content: '',
@@ -53,7 +54,7 @@ const Profile = ({ profile }) => {
 
   const deleteArticle = async (articleId) => {
     try {
-      await axios.delete(`https://api-bpjph-testdev.revocreative.net/entries/${articleId}`)
+      await axios.delete(`${process.env.REACT_APP_API_URL}/entries/${articleId}`)
 
       fetchArticles()
 

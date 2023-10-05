@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 // eslint-disable-next-line no-unused-vars
 import React, { useState, useEffect } from 'react'
 import { AiOutlineSearch } from 'react-icons/ai'
@@ -14,7 +15,7 @@ const Dictionary = () => {
   const articlesPerPage = 4
 
   useEffect(() => {
-    axios.get('https://api-bpjph-testdev.revocreative.net/entries')
+    axios.get(`${process.env.REACT_APP_API_URL}/entries/`)
       .then((response) => {
         setArticlesData(response.data)
         setIsLoading(false)
