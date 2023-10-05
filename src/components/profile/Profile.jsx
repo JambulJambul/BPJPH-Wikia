@@ -233,7 +233,7 @@ const Profile = ({ profile }) => {
                                 <div className="flex w-full justify-center items-center">
                                     <button
                                         onClick={toggleShowMore}
-                                        className="bg-blue-600 hover:bg-blue-300 text-white mt-4 px-6 py-2 rounded-md transition-colors duration-300 ease-in-out"
+                                        className="bg-none hover:bg-blue-700 text-gray-400 hover:text-white mt-4 px-6 py-2 rounded-md border border-gray-600 transition-colors duration-300 ease-in-out"
                                     >
                                         {showAllArticles ? 'Show Less' : 'See More'}
                                         <svg
