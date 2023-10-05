@@ -97,7 +97,7 @@ const Profile = ({ profile }) => {
     setShowAllArticles(!showAllArticles)
 
     if (showAllArticles) {
-      setDisplayedArticlesCount(5)
+      setDisplayedArticlesCount(4)
     } else {
       setDisplayedArticlesCount(articles.length)
     }
