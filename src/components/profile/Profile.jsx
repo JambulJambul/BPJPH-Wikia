@@ -47,6 +47,7 @@ const Profile = ({ profile }) => {
       })
 
       fetchArticles()
+      window.location.reload()
 
     } catch (error) {
       console.error('Error creating article:', error)
