@@ -34,7 +34,7 @@ const Dictionary = () => {
   const filteredArticles = articlesData.filter((article) =>
     (article.title?.toLowerCase().includes(searchTerm.toLowerCase()) ||
     article.content?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    article.reference?.toLowerCase().includes(searchTerm.toLowerCase()))
+    article.references?.toLowerCase().includes(searchTerm.toLowerCase()))
   )
 
   const indexOfLastArticle = currentPage * articlesPerPage
