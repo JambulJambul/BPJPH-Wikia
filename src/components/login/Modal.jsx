@@ -4,6 +4,7 @@
 import React, { useState, useEffect } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { auth } from '../../firebase'
+import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut } from 'firebase/auth'
 
 const Modal = ({ isOpen, onClose }) => {
 
@@ -12,7 +13,8 @@ const Modal = ({ isOpen, onClose }) => {
   const [user, setUser] = useState(null)
 
   useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((authUser) => {
+    const auth = getAuth()
+    const unsubscribe = onAuthStateChanged(auth, (authUser) => {
       if (authUser) {
         // User is logged in
         setUser(authUser)
@@ -34,7 +36,7 @@ const Modal = ({ isOpen, onClose }) => {
 
     if (email === adminEmail && password === adminPassword) {
       try {
-        await auth.signInWithEmailAndPassword(email, password)
+        await signInWithEmailAndPassword(auth, email, password)
         alert('Login successful')
         onClose()
         window.open('/my-profile', '_blank')
@@ -48,8 +50,10 @@ const Modal = ({ isOpen, onClose }) => {
 
   const handleLogout = async () => {
     try {
-      await auth.signOut()
+      await signOut(auth)
       alert('Logout successful')
+      window.open('/', '_blank')
+      window.close('/my-profile')
     } catch (error) {
       alert('Logout failed: ' + error.message)
     }
