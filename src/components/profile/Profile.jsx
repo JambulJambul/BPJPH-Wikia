@@ -47,7 +47,6 @@ const Profile = ({ profile }) => {
       })
 
       fetchArticles()
-      window.location.reload()
 
     } catch (error) {
       console.error('Error creating article:', error)
@@ -188,7 +187,7 @@ const Profile = ({ profile }) => {
                                             name="reference"
                                             placeholder="Reference"
                                             className="w-full px-4 py-2 border rounded-md mb-4"
-                                            value={formData.reference}
+                                            value={formData.references}
                                             onChange={(e) =>
                                               setFormData({ ...formData, references: e.target.value })
                                             }
@@ -243,13 +242,13 @@ const Profile = ({ profile }) => {
                                             </Link>
                                             <button
                                                 onClick={() => editArticle(article)}
-                                                className="text-blue-500 hover:text-blue-700 mt-4 px-6 py-2 rounded-md"
+                                                className="text-blue-500 hover:text-blue-700 mt-4 px-6 py-2 rounded-md z-50"
                                             >
                                                 Edit
                                             </button>
                                             <button
                                                 onClick={() => deleteArticle(article.id)}
-                                                className="text-red-500 hover:text-red-700 mt-4 px-6 py-2 rounded-md"
+                                                className="text-red-500 hover:text-red-700 mt-4 px-6 py-2 rounded-md z-50"
                                             >
                                                 Delete
                                             </button>
