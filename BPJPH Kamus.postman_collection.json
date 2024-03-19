@@ -1,0 +1,248 @@
+{
+	"info": {
+		"_postman_id": "dbf20ab7-03ab-4cb6-8f15-8652d8cb67ee",
+		"name": "BPJPH Kamus",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "15065693"
+	},
+	"item": [
+		{
+			"name": "Register User",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\" : \"bebekbakar@gmail.com\",\r\n    \"password\" : \"satebakar123\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/users/register",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"users",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login User",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\" : \"bebekbakar@gmail.com\",\r\n    \"password\" : \"satebakar123\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/users/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"users",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login User Failed",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\" : \"bebekbakar@gmail.com\",\r\n    \"password\" : \"satebakar1243\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/users/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"users",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Entries - Authorization",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJiZWJla2Jha2FyQGdtYWlsLmNvbSIsInVzZXJfdHlwZSI6InVzZXIiLCJpYXQiOjE3MTA2OTYxOTcsImV4cCI6MTcxMDY5Nzk5N30.FY_rOLIyC4QvQg7axhM5xjHi8vXdJGN4kP1UNlMJjPw",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"title\" : \"Sate Bakar Itu Enak\",\r\n    \"content\" : \"Sate Bakar Itu Enak\",\r\n    \"references\" : \"Sate Bakar Itu Enak\",\r\n    \"img\": \"Sate Bakar Itu Enak\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/entries/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"entries",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Entry",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJiZWJla2Jha2FyQGdtYWlsLmNvbSIsInVzZXJfdHlwZSI6InVzZXIiLCJpYXQiOjE3MTA2OTYxOTcsImV4cCI6MTcxMDY5Nzk5N30.FY_rOLIyC4QvQg7axhM5xjHi8vXdJGN4kP1UNlMJjPw",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/entries/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"entries",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Entry Copy",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJiZWJla2Jha2FyQGdtYWlsLmNvbSIsInVzZXJfdHlwZSI6InVzZXIiLCJpYXQiOjE3MTA2OTYxOTcsImV4cCI6MTcxMDY5Nzk5N30.FY_rOLIyC4QvQg7axhM5xjHi8vXdJGN4kP1UNlMJjPw",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"references\" : \"Test 222\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/entries/4",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"entries",
+						"4"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Entry",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJiZWJla2Jha2FyQGdtYWlsLmNvbSIsInVzZXJfdHlwZSI6InVzZXIiLCJpYXQiOjE3MTA3MTQ2NTIsImV4cCI6MTcxMDcxNjQ1Mn0.sNKpxK9NvwBhTggB-cE855nF20GdU2H12iX6ddbxU40",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/entries/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"entries",
+						"2"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": null,
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
