@@ -5,6 +5,7 @@ import { motion } from 'framer-motion';
 import axios from 'axios';
 
 const Register = ({ setPage }) => {
+    
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -29,9 +30,13 @@ const Register = ({ setPage }) => {
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -50 }}
     >
-      <h2>Register</h2>
+      <h2>
+        Register
+      </h2>
       <div className="form-group">
-        <label>Email:</label>
+        <label>
+          Email:
+        </label>
         <input
           type="email"
           value={email}
@@ -39,15 +44,21 @@ const Register = ({ setPage }) => {
         />
       </div>
       <div className="form-group">
-        <label>Password:</label>
+        <label>
+          Password:
+        </label>
         <input
           type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
       </div>
-      <button onClick={handleRegister}>Register</button>
-      <p onClick={() => setPage('login')} className="switch-page">Already have an account? Login</p>
+      <button onClick={handleRegister}>
+        Register
+      </button>
+      <p onClick={() => setPage('login')} className="switch-page">
+        Already have an account? Login
+      </p>
     </motion.div>
   );
 };
