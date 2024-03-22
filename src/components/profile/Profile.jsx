@@ -4,138 +4,40 @@
 // eslint-disable-next-line no-unused-vars
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import axios from 'axios'
-import { auth } from '../../firebase'
-import { getAuth, onAuthStateChanged, signOut } from 'firebase/auth'
+import axios from 'axios';
 
 const Profile = ({ profile }) => {
-
-  const { admin, bio, social, img } = profile
-
-  const [activeTab, setActiveTab] = useState('create')
-
   
-  const [articles, setArticles] = useState([])
-  const [showAllArticles, setShowAllArticles] = useState(false)
-  const [displayedArticlesCount, setDisplayedArticlesCount] = useState(4)
+  const { admin, bio, social, img } = profile;
 
-  const [formData, setFormData] = useState({
-    title: '',
-    content: '',
-    references: '',
-    img: '',
-  })
-  
-  const [editMode, setEditMode] = useState(false)
-  const [editedArticle, setEditedArticle] = useState(null)
+  const [activeTab, setActiveTab] = useState('create');
 
-    useEffect(() => {
-    const auth = getAuth()
-    const unsubscribe = onAuthStateChanged(auth, (authUser) => {
-      if (authUser) {
-        // User is logged in
-        setUser(authUser)
-      } else {
-        // User is logged out
-        setUser(null)
-      }
-    })
+  const [articles, setArticles] = useState([]);
+  const [showAllArticles, setShowAllArticles] = useState(false);
+  const [displayedArticlesCount, setDisplayedArticlesCount] = useState(4);
 
-    return () => {
-      unsubscribe()
-    }
-  }, [])
+  useEffect(() => {
+    fetchArticles();
+  }, []);
 
   const fetchArticles = async () => {
     try {
-      const response = await axios.get(`${process.env.REACT_APP_API_URL}/entries/`)
-      setArticles(response.data)
+      const response = await axios.get('http://localhost:3000/entries/');
+      setArticles(response.data);
     } catch (error) {
-      console.error('Error fetching articles:', error)
+      console.error('Error fetching articles:', error);
     }
-  }
-
-  const createArticle = async () => {
-    try {
-      await axios.post(`${process.env.REACT_APP_API_URL}/entries/`, formData)
-      setFormData({
-        title: '',
-        content: '',
-        reference: '',
-        img: '',
-      })
-
-      fetchArticles()
-
-    } catch (error) {
-      console.error('Error creating article:', error)
-    }
-  }
-
-  const editArticle = (article) => {
-    setEditMode(true)
-    setEditedArticle(article)
-  }
-
-  const updateArticle = async () => {
-    try {
-      const updatedArticle = await axios.put(
-        `${process.env.REACT_APP_API_URL}/entries/${editedArticle.id}`,
-        editedArticle
-      )
-
-      const updatedArticles = articles.map((article) =>
-        article.id === updatedArticle.id ? updatedArticle : article
-      )
-      setArticles(updatedArticles);
-
-      setEditMode(false)
-      setEditedArticle(null)
-    } catch (error) {
-      console.error('Error updating article:', error)
-    }
-  }
-
-  const deleteArticle = async (articleId) => {
-    try {
-      await axios.delete(`${process.env.REACT_APP_API_URL}/entries/${articleId}`)
-
-      fetchArticles()
-
-    } catch (error) {
-      console.error('Error deleting article:', error)
-    }
-  }
-
-  useEffect(() => {
-    fetchArticles()
-  }, [])
+  };
 
   const toggleShowMore = () => {
-
-    setShowAllArticles(!showAllArticles)
+    setShowAllArticles(!showAllArticles);
 
     if (showAllArticles) {
-      setDisplayedArticlesCount(4)
+      setDisplayedArticlesCount(4);
     } else {
-      setDisplayedArticlesCount(articles.length)
+      setDisplayedArticlesCount(articles.length);
     }
-  }
-
-    const handleLogout = async () => {
-    try {
-      await signOut(auth)
-      alert('Logout successful')
-      window.open('/', '_blank')
-      window.close('/my-profile')
-    } catch (error) {
-      alert('Logout failed: ' + error.message)
-    }
-  }
-
-  const logoutMSG = () => {
-    alert("Aight, blud. Godspeed.")
-  }
+  };
 
   return (
     <>

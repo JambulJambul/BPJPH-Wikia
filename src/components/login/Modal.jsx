@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 // eslint-disable-next-line no-unused-vars
 import React, { useState, useEffect } from 'react';
-import { useHistory } from 'react-router-dom'; // Import useHistory hook for programmatic navigation
+import { useNavigate } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
 import axios from 'axios';
 
@@ -13,7 +13,7 @@ const Modal = ({ isOpen, onClose }) => {
   const [user, setUser] = useState(null);
   const [error, setError] = useState(null);
   
-  const history = useHistory();
+  const history = useNavigate();
 
   useEffect(() => {
     const token = localStorage.getItem('token');
