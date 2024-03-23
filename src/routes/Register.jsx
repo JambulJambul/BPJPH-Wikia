@@ -2,13 +2,17 @@
 // eslint-disable-next-line no-unused-vars
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
-const Register = ({ setPage }) => {
+const Register = () => {
   
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
   const [errorMessage, setErrorMessage] = useState('');
+
+  const history = useNavigate();
 
   const handleRegister = async () => {
     try {
@@ -18,7 +22,7 @@ const Register = ({ setPage }) => {
       });
       console.log('Registration successful:', response.data);
 
-      setPage('home');
+      history.push('/');
 
       alert('Registration successful! You can now log in.');
 
@@ -49,7 +53,7 @@ const Register = ({ setPage }) => {
     >
       <div className="w-full max-w-md p-8 bg-white rounded shadow-lg">
         <h2 className="text-2xl font-bold text-center mb-8">
-          Register
+          Register Admin
         </h2>
         <form className="space-y-4">
           <div>
@@ -72,20 +76,20 @@ const Register = ({ setPage }) => {
           </div>
           { errorMessage && <p className="text-red-500"> {errorMessage} </p> }
           <div className="flex justify-between items-center">
-            <button
-              type="button"
-              onClick={handleRegister}
-              className="btn-primary"
-            >
-              Register
-            </button>
-            <button
-              type="button"
-              onClick={() => setPage('home')}
-              className="btn-secondary"
-            >
-              Cancel
-            </button>
+          <button
+            type="button"
+            onClick={handleRegister}
+            className="btn-primary text-blue-500"
+          >
+            Register
+          </button>
+          <button
+            type="button"
+            onClick={() => history.push('/')}
+            className="btn-secondary text-red-500" // Red color for Cancel button
+          >
+            Cancel
+          </button>
           </div>
         </form>
       </div>
