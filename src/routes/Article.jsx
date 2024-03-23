@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-unused-vars
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { useParams, Link } from 'react-router-dom';
@@ -5,7 +6,9 @@ import axios from 'axios';
 import { Loader } from '../components';
 
 const Article = () => {
+
   const [isLoading, setIsLoading] = useState(true);
+  
   const { id } = useParams();
   const [articles, setArticles] = useState({});
   

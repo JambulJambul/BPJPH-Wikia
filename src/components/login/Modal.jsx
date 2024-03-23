@@ -6,10 +6,13 @@ import { AnimatePresence, motion } from 'framer-motion';
 import axios from 'axios';
 
 const Modal = ({ isOpen, onClose }) => {
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
   const [user, setUser] = useState(null);
   const [error, setError] = useState(null);
+
   const history = useNavigate();
 
   useEffect(() => {
@@ -36,14 +39,22 @@ const Modal = ({ isOpen, onClose }) => {
         email,
         password,
       });
+
+      console.log('Response:', response);
+    
       localStorage.setItem('token', response.data.token);
+
       setUser(response.data.user);
+
       onClose();
-      history.push('/my-profile');
+
+      history('/my-profile');
+
     } catch (error) {
       setError(error.response.data.message);
     }
   };
+
 
   const handleLogout = () => {
     localStorage.removeItem('token');

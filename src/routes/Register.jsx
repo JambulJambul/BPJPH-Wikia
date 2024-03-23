@@ -1,13 +1,14 @@
 // eslint-disable-next-line no-unused-vars
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom'; // Import Link
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 const Register = () => {
-  
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  
   const [errorMessage, setErrorMessage] = useState('');
 
   const handleRegister = async () => {
@@ -17,12 +18,9 @@ const Register = () => {
         password
       });
       console.log('Registration successful:', response.data);
-
       alert('Registration successful! You can now log in.');
-
       setEmail('');
       setPassword('');
-
     } catch (error) {
       handleRegistrationFailure(error);
     }
@@ -30,7 +28,11 @@ const Register = () => {
 
   const handleRegistrationFailure = (error) => {
     console.error('Registration failed:', error);
-    setErrorMessage('Registration failed. Please try again.');
+    if (error.response && error.response.data && error.response.data.message) {
+      setErrorMessage(error.response.data.message);
+    } else {
+      setErrorMessage('Registration failed. Please try again.');
+    }
     setEmail('');
     setPassword('');
   };
@@ -74,7 +76,6 @@ const Register = () => {
             >
               Register
             </button>
-            {/* Replace the 'Cancel' button with a Link to the homepage */}
             <Link to="/" className="btn-secondary text-red-500">
               Cancel
             </Link>
