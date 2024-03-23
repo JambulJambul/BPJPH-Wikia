@@ -1,38 +1,44 @@
-/* eslint-disable no-undef */
-// eslint-disable-next-line no-unused-vars
-import React, { useEffect, useState } from 'react'
-import { motion } from 'framer-motion'
-import { useParams, Link } from 'react-router-dom'
-import axios from 'axios'
-import { Loader } from '../components'
+import React, { useEffect, useState } from 'react';
+import { motion } from 'framer-motion';
+import { useParams, Link } from 'react-router-dom';
+import axios from 'axios';
+import { Loader } from '../components';
 
 const Article = () => {
-
-  const [isLoading, setIsLoading] = useState(true)
-  const { id } = useParams()
-  const [article, setArticle] = useState(null)
-
+  const [isLoading, setIsLoading] = useState(true);
+  const { id } = useParams();
+  const [articles, setArticles] = useState({});
+  
   useEffect(() => {
-    axios.get(`http://localhost:3000/entries/${id}`)
-      .then((response) => {
-        setArticle(response.data)
-        setIsLoading(false)
-      })
-      .catch((error) => {
-        console.error('Error fetching data:', error)
-        setIsLoading(false)
-      })
-  }, [id])
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(`http://localhost:3000/entries`);
+        const articlesData = response.data.reduce((acc, article) => {
+          acc[article.id] = article;
+          return acc;
+        }, {});
+        setArticles(articlesData);
+        setIsLoading(false);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+        setIsLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   if (isLoading) {
-    return <Loader />
+    return <Loader />;
   }
+
+  const article = articles[id];
 
   if (!article) {
-    return <div>Article not found.</div>
+    return <div>Article not found.</div>;
   }
 
-  const { title, content, references, img } = article
+  const { title, content, references, img } = article;
 
   return (
     <div className="flex flex-col w-full h-full p-4 justify-center items-center">
@@ -106,7 +112,7 @@ const Article = () => {
         </motion.div>
       </motion.div>
     </div>
-  )
-}
+  );
+};
 
-export default Article
+export default Article;
