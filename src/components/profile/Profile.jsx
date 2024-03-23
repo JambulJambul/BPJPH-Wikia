@@ -2,19 +2,29 @@
 /* eslint-disable react/no-unknown-property */
 /* eslint-disable react/prop-types */
 // eslint-disable-next-line no-unused-vars
-import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
+import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 const Profile = ({ profile }) => {
-  
+
   const { admin, bio, social, img } = profile;
 
   const [activeTab, setActiveTab] = useState('create');
-
   const [articles, setArticles] = useState([]);
+  
   const [showAllArticles, setShowAllArticles] = useState(false);
   const [displayedArticlesCount, setDisplayedArticlesCount] = useState(4);
+
+  const [formData, setFormData] = useState({
+    title: '',
+    content: '',
+    references: '',
+    img: '',
+  });
+
+  const [editMode, setEditMode] = useState(false);
+  const [editedArticle, setEditedArticle] = useState(null);
 
   useEffect(() => {
     fetchArticles();
@@ -22,21 +32,78 @@ const Profile = ({ profile }) => {
 
   const fetchArticles = async () => {
     try {
-      const response = await axios.get('http://localhost:3000/entries/');
+      const response = await axios.get(`${process.env.REACT_APP_API_URL}/entries/`);
       setArticles(response.data);
     } catch (error) {
       console.error('Error fetching articles:', error);
     }
   };
 
+  const createArticle = async () => {
+    try {
+      await axios.post(`http://localhost:3000/entries/`, formData);
+      setFormData({
+        title: '',
+        content: '',
+        references: '',
+        img: '',
+      });
+      fetchArticles();
+    } catch (error) {
+      console.error('Error creating article:', error);
+    }
+  };
+
+  const editArticle = (article) => {
+    setEditMode(true);
+    setEditedArticle(article);
+  };
+
+  const updateArticle = async () => {
+    try {
+      const updatedArticle = await axios.put(
+        `http://localhost:3000/entries/${editedArticle.id}`,
+        editedArticle
+      );
+      const updatedArticles = articles.map((article) =>
+        article.id === updatedArticle.id ? updatedArticle : article
+      );
+      setArticles(updatedArticles);
+      setEditMode(false);
+      setEditedArticle(null);
+    } catch (error) {
+      console.error('Error updating article:', error);
+    }
+  };
+
+  const deleteArticle = async (articleId) => {
+    try {
+      await axios.delete(`http://localhost:3000/entries/${articleId}`);
+      fetchArticles();
+    } catch (error) {
+      console.error('Error deleting article:', error);
+    }
+  };
+
   const toggleShowMore = () => {
     setShowAllArticles(!showAllArticles);
-
     if (showAllArticles) {
       setDisplayedArticlesCount(4);
     } else {
       setDisplayedArticlesCount(articles.length);
     }
+  };
+
+  const handleLogout = async () => {
+    try {
+      // Your logout logic goes here
+    } catch (error) {
+      console.error('Logout failed:', error.message);
+    }
+  };
+
+  const logoutMSG = () => {
+    alert('Aight, blud. Godspeed.');
   };
 
   return (
@@ -116,7 +183,7 @@ const Profile = ({ profile }) => {
                                         />
                                         <input
                                             type="text"
-                                            name="reference"
+                                            name="references"
                                             placeholder="Reference"
                                             className="w-full px-4 py-2 border rounded-md mb-4"
                                             value={formData.references}
@@ -143,7 +210,7 @@ const Profile = ({ profile }) => {
                                             </button>
                                         </div>
                                     </form>
-                                </div>
+                                    </div>
                             </>
                         )}
                         {activeTab === 'edit' && (
@@ -245,7 +312,7 @@ const Profile = ({ profile }) => {
                                       />
                                       <input
                                         type="text"
-                                        name="reference"
+                                        name="references"
                                         placeholder="Reference"
                                         className="w-full px-4 py-2 border rounded-md mb-4"
                                         value={editedArticle.references}
@@ -295,48 +362,49 @@ const Profile = ({ profile }) => {
                         {activeTab === 'logout' && (
                             <>
                                 <div className="my-4 p-4 border border-gray-300 rounded-md bg-white">
-                                    <h1 className="text-xl text-gray-700 text-center my-6">
-                                        Logout?
-                                    </h1>
-                                </div>
-                                <div className="flex flex-row justify-center items-center space-x-6">
-                                    <Link to="/">
-                                        <button
-                                            onClick={handleLogout}
-                                            type="submit"
-                                            className="bg-red-600 hover:bg-orange-700 text-white mt-4 px-6 py-2 rounded-md"
-                                        >
-                                            Yes
-                                        </button>
-                                    </Link>
-                                    <button
-                                        type="submit"
-                                        onClick={logoutMSG}
-                                        className="text-gray-600 hover:text-gray-900 hover:underline mt-4 px-6 py-2 block text-center transition-colors duration-300 ease-in-out"
-                                    >
-                                        No
-                                    </button>
-                                </div>
-                            </>
-                        )}
-                        <div className="h-[50px]"></div>
-                        <div className="w-full">
-                            <h1 className="font-medium text-gray-900 text-center text-2xl px-6">
-                                Connect with me
-                            </h1>
-                            <div className="mt-5 w-full flex flex-col items-center overflow-hidden text-sm">
-                                <Link to={social} className="w-full border-t border-gray-100  text-center text-gray-600 py-4 pl-6 pr-3 block hover:bg-gray-100 transition duration-150">
-                                    <img src={img} alt={admin} className="rounded-full h-6 shadow-md inline-block mr-4" />
-                                        {social}
-                                </Link>
+                                    <h1 className="text-xl text-gray-700 text
+                                    -center my-6">
+                                    Logout?
+                                </h1>
                             </div>
+                            <div className="flex flex-row justify-center items-center space-x-6">
+                                <Link to="/">
+                                    <button
+                                        onClick={handleLogout}
+                                        type="submit"
+                                        className="bg-red-600 hover:bg-orange-700 text-white mt-4 px-6 py-2 rounded-md"
+                                    >
+                                        Yes
+                                    </button>
+                                </Link>
+                                <button
+                                    type="submit"
+                                    onClick={logoutMSG}
+                                    className="text-gray-600 hover:text-gray-900 hover:underline mt-4 px-6 py-2 block text-center transition-colors duration-300 ease-in-out"
+                                >
+                                    No
+                                </button>
+                            </div>
+                        </>
+                    )}
+                    <div className="h-[50px]"></div>
+                    <div className="w-full">
+                        <h1 className="font-medium text-gray-900 text-center text-2xl px-6">
+                            Connect with me
+                        </h1>
+                        <div className="mt-5 w-full flex flex-col items-center overflow-hidden text-sm">
+                            <Link to={social} className="w-full border-t border-gray-100  text-center text-gray-600 py-4 pl-6 pr-3 block hover:bg-gray-100 transition duration-150">
+                                <img src={img} alt={admin} className="rounded-full h-6 shadow-md inline-block mr-4" />
+                                    {social}
+                            </Link>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </>
-  )
+    </div>
+</>
+)
 }
 
-export default Profile
+export default Profile;
