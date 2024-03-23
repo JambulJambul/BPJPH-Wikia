@@ -1,18 +1,14 @@
-/* eslint-disable react/prop-types */
 // eslint-disable-next-line no-unused-vars
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom'; // Import Link
 import axios from 'axios';
 
 const Register = () => {
   
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
   const [errorMessage, setErrorMessage] = useState('');
-
-  const history = useNavigate();
 
   const handleRegister = async () => {
     try {
@@ -21,8 +17,6 @@ const Register = () => {
         password
       });
       console.log('Registration successful:', response.data);
-
-      history.push('/');
 
       alert('Registration successful! You can now log in.');
 
@@ -35,11 +29,8 @@ const Register = () => {
   };
 
   const handleRegistrationFailure = (error) => {
-    
     console.error('Registration failed:', error);
-
     setErrorMessage('Registration failed. Please try again.');
-
     setEmail('');
     setPassword('');
   };
@@ -76,20 +67,17 @@ const Register = () => {
           </div>
           { errorMessage && <p className="text-red-500"> {errorMessage} </p> }
           <div className="flex justify-between items-center">
-          <button
-            type="button"
-            onClick={handleRegister}
-            className="btn-primary text-blue-500"
-          >
-            Register
-          </button>
-          <button
-            type="button"
-            onClick={() => history.push('/')}
-            className="btn-secondary text-red-500" 
-          >
-            Cancel
-          </button>
+            <button
+              type="button"
+              onClick={handleRegister}
+              className="btn-primary text-blue-500"
+            >
+              Register
+            </button>
+            {/* Replace the 'Cancel' button with a Link to the homepage */}
+            <Link to="/" className="btn-secondary text-red-500">
+              Cancel
+            </Link>
           </div>
         </form>
       </div>

@@ -1,18 +1,15 @@
 /* eslint-disable react/prop-types */
 // eslint-disable-next-line no-unused-vars
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
 import axios from 'axios';
 
 const Modal = ({ isOpen, onClose }) => {
-
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
   const [user, setUser] = useState(null);
   const [error, setError] = useState(null);
-  
   const history = useNavigate();
 
   useEffect(() => {
@@ -120,6 +117,9 @@ const Modal = ({ isOpen, onClose }) => {
                 >
                   Close
                 </motion.button>
+              </div>
+              <div className="text-center">
+                <Link to="/register" className="text-blue-600 hover:underline">Register as Admin</Link>
               </div>
             </motion.div>
           </motion.div>
