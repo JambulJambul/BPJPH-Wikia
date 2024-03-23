@@ -15,7 +15,7 @@ const Dictionary = () => {
   const articlesPerPage = 4
 
   useEffect(() => {
-    axios.get(`${process.env.REACT_APP_API_URL}/entries/`)
+    axios.get('http://localhost:3000/entries/')
       .then((response) => {
         setArticlesData(response.data)
         setIsLoading(false)

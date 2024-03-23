@@ -13,7 +13,7 @@ const Article = () => {
   const [article, setArticle] = useState(null)
 
   useEffect(() => {
-    axios.get(`${process.env.REACT_APP_API_URL}/entries/${id}`)
+    axios.get(`http://localhost:3000/entries/${id}`)
       .then((response) => {
         setArticle(response.data)
         setIsLoading(false)
