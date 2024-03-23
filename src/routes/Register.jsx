@@ -86,7 +86,7 @@ const Register = () => {
           <button
             type="button"
             onClick={() => history.push('/')}
-            className="btn-secondary text-red-500" // Red color for Cancel button
+            className="btn-secondary text-red-500" 
           >
             Cancel
           </button>
