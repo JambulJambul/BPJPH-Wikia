@@ -44,7 +44,7 @@ const Article = () => {
   const { title, content, references, img } = article;
 
   return (
-    <div className="flex flex-col w-full h-full p-4 justify-center items-center">
+    <div className="flex flex-col w-full h-full p-4 pt-24 justify-center items-center">
       <motion.div
         className="w-full p-2 mx-auto"
         initial={{ opacity: 0, x: 100 }}

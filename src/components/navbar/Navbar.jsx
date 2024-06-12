@@ -5,10 +5,10 @@ import { Link } from 'react-router-dom'
 const Navbar = () => {
   return (
     <>
-        <div className="grid w-full justify-center items-center p-5 bg-blue-900">
+        <div className="fixed w-screen z-50 flex justify-start px-4 py-1 bg-gradient-to-r from-15% from-blue-900 to-blue-500 drop-shadow-2xl">
             <div className="my-2">
               <Link to="/">
-                <img src='/bpjph-logo.png' alt='BPJPH' className="max-w-full m-auto" />
+                <img src='/bpjph-logo.png' alt='BPJPH' className="h-12 max-w-full m-auto" />
               </Link>
             </div>
         </div>

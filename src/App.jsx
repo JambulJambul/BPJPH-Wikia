@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React, { useState } from 'react'
 import { Route, Routes } from 'react-router-dom'
-import { Article, Dictionary, MyProfile, Register } from './routes'
+import { Article, Dictionary, MyProfile, Register, AdminHome } from './routes'
 import { Modal } from './components'
 import { AiFillLock, AiOutlineUnlock } from 'react-icons/ai'
 
@@ -35,6 +35,7 @@ function App() {
         <Route path="/article/:id" element={<Article />} />
         <Route path="/my-profile" element={<MyProfile />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/admin" element={<AdminHome />} />
       </Routes>
       <button
         className={`fixed bottom-8 right-6 bg-blue-500 text-white rounded-full p-3 transition-transform transform active:scale-105 active:-translate-y-4 active:-translate-x-6 hover:shadow-md ${
