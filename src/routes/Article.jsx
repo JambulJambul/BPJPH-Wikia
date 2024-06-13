@@ -15,7 +15,7 @@ const Article = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://localhost:3000/entries`);
+        const response = await axios.get(`${process.env.REACT_APP_API_URL}/entries`);
         const articlesData = response.data.reduce((acc, article) => {
           acc[article.id] = article;
           return acc;

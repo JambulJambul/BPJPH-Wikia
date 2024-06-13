@@ -18,7 +18,7 @@ const Modal = ({ isOpen, onClose }) => {
   useEffect(() => {
     const token = localStorage.getItem('token');
     if (token) {
-      axios.get('http://localhost:3000/users/me', {
+      axios.get(`${process.env.REACT_APP_API_URL}/users/me`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -35,7 +35,7 @@ const Modal = ({ isOpen, onClose }) => {
 
   const handleLogin = async () => {
     try {
-      const response = await axios.post('http://localhost:3000/users/login', {
+      const response = await axios.post(`${process.env.REACT_APP_API_URL}/users/login`, {
         email,
         password,
       });

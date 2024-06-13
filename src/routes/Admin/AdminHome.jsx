@@ -1,11 +1,11 @@
-import { Sidebar } from "../components"
-import HelloImage from "../../public/undraw_hello.svg"
+import { Sidebar } from "../../components"
+import HelloImage from "../../assets/undraw_hello.svg"
 
 const AdminHome = () => {
     return (
         <>
             <div className="flex pt-24">
-                <div className="w-48">
+                <div className="w-64">
                     <Sidebar />
                 </div>
                 <div className="max-w-[1440px] mx-auto py-16 px-24 flex-1">
@@ -18,7 +18,7 @@ const AdminHome = () => {
                                 Welcome to Kamus Halal admin dashboard
                             </h1>
                         </div>
-                        <img className="h-64" src={HelloImage} alt="" />
+                        <img className="h-64 p-4" src={HelloImage} alt="" />
                     </div>
                     <div className="py-12">
                         <section>

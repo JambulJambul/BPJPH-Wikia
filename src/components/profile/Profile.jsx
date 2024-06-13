@@ -41,7 +41,7 @@ const Profile = ({ profile }) => {
 
   const createArticle = async () => {
     try {
-      await axios.post(`http://localhost:3000/entries/`, formData);
+      await axios.post(`${process.env.REACT_APP_API_URL}/entries/`, formData);
       setFormData({
         title: '',
         content: '',
@@ -62,7 +62,7 @@ const Profile = ({ profile }) => {
   const updateArticle = async () => {
     try {
       const updatedArticle = await axios.put(
-        `http://localhost:3000/entries/${editedArticle.id}`,
+        `${process.env.REACT_APP_API_URL}/entries/${editedArticle.id}`,
         editedArticle
       );
       const updatedArticles = articles.map((article) =>
@@ -78,7 +78,7 @@ const Profile = ({ profile }) => {
 
   const deleteArticle = async (articleId) => {
     try {
-      await axios.delete(`http://localhost:3000/entries/${articleId}`);
+      await axios.delete(`${process.env.REACT_APP_API_URL}/entries/${articleId}`);
       fetchArticles();
     } catch (error) {
       console.error('Error deleting article:', error);
