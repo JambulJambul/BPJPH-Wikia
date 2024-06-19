@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
 import axios from 'axios';
+import { jwtDecode } from 'jwt-decode';
 
 const Modal = ({ isOpen, onClose }) => {
 
@@ -13,25 +14,8 @@ const Modal = ({ isOpen, onClose }) => {
   const [user, setUser] = useState(null);
   const [error, setError] = useState(null);
 
-  const history = useNavigate();
 
-  useEffect(() => {
-    const token = localStorage.getItem('token');
-    if (token) {
-      axios.get(`${process.env.REACT_APP_API_URL}/users/me`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-        .then(response => {
-          setUser(response.data.user);
-        })
-        .catch(error => {
-          console.error('Authentication failed:', error);
-          localStorage.removeItem('token');
-        });
-    }
-  }, []);
+  const history = useNavigate();
 
   const handleLogin = async () => {
     try {
@@ -39,22 +23,24 @@ const Modal = ({ isOpen, onClose }) => {
         email,
         password,
       });
-
-      console.log('Response:', response);
-    
-      localStorage.setItem('token', response.data.token);
-
-      setUser(response.data.user);
-
+      const token = response?.data?.token;
+      localStorage.setItem('token', token);
+      const decodedToken = jwtDecode(token);
+      const { role } = decodedToken;
+      pushPage(role);
       onClose();
-
-      history('/my-profile');
-
     } catch (error) {
-      setError(error.response.data.message);
+      setError(error);
     }
   };
 
+  const pushPage = (role) => {
+    if (role === '1') {
+      history('/admin');
+    } else {
+      history('/my-profile');
+    }
+  }
 
   const handleLogout = () => {
     localStorage.removeItem('token');
