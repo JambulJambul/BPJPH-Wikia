@@ -4,15 +4,10 @@ import { Loader } from '../../../components';
 import useAuth from '../../utils/useAuth';
 
 const ProtectedRoute = ({ children, adminOnly }) => {
-    const [isLoading, setIsLoading] = useState(true);
-    const { isAuthenticated, isAdmin } = useAuth();
-
-    useEffect(() => {
-        setIsLoading(false);
-    }, []);
+    const { isAuthenticated, isAdmin, isLoading } = useAuth();
 
     if (isLoading) {
-        return <Loader />
+        return <Loader />;
     }
 
     if (!isAuthenticated) {
