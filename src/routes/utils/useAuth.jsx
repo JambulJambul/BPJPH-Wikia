@@ -1,16 +1,21 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
+import { jwtDecode } from 'jwt-decode';
 
 const useAuth = () => {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [isAdmin, setIsAdmin] = useState(false);
-    const [isLoading, setIsLoading] = useState(true); 
+    const [isLoading, setIsLoading] = useState(true);
+    const [usernameAuth, setUsernameAuth] = useState(null)
 
-    useEffect(() => {
-        const authorization = async () => {
-            const token = localStorage.getItem('token');
-            if (token) {
-                setIsAuthenticated(true);
+    const refreshAuthState = useCallback(async () => {
+        setIsLoading(true);
+        const token = localStorage.getItem('token');
+        if (token) {
+            const { role, username } = jwtDecode(token)
+            setUsernameAuth(username)
+            setIsAuthenticated(true);
+            if (role === '1') {
                 try {
                     const response = await axios.post(`${process.env.REACT_APP_API_URL}/users/check-admin`, {}, {
                         headers: {
@@ -24,14 +29,20 @@ const useAuth = () => {
                     }
                 } catch (error) {
                     console.error('Invalid token:', error);
+                    setIsAdmin(false);
                 }
             }
-            setIsLoading(false); 
-        };
-        authorization();
+        } else {
+            setIsAuthenticated(false);
+        }
+        setIsLoading(false);
     }, []);
 
-    return { isAuthenticated, isAdmin, isLoading }; 
+    useEffect(() => {
+        refreshAuthState();
+    }, [refreshAuthState]);
+
+    return { isAuthenticated, isAdmin, isLoading, usernameAuth, refreshAuthState };
 };
 
 export default useAuth;

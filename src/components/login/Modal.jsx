@@ -1,5 +1,3 @@
-/* eslint-disable react/prop-types */
-// eslint-disable-next-line no-unused-vars
 import React, { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
@@ -117,13 +115,13 @@ const AuthModal = ({ isOpen, onClose }) => {
                   <span className="px-4">Or</span>
                   <span className="w-full border border-black"></span>
                 </div>
-                <motion.button
-                  className="text-gray-500 hover:text-gray-700 ml-2 font-medium transition-all duration-300"
+              </form>
+              <motion.button
+                  className="text-gray-500 hover:text-gray-700 font-medium transition-all duration-300"
                   onClick={onClose}
                 >
                   Close
                 </motion.button>
-              </form>
               <div className="text-center">
                 <button 
                   onClick={() => setIsLoginMode(!isLoginMode)}
