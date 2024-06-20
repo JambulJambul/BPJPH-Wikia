@@ -40,7 +40,7 @@ const Navbar = () => {
   };
 
   const toDashboard = () => {
-    if (isAdmin) {
+    if (authStatus === 'admin') {
       navigate("/admin")
     } else {
       navigate("/my-profile")
@@ -54,8 +54,9 @@ const Navbar = () => {
   }
 
   const handleLogout = () => {
-    const token = localStorage.removeItem('token');
+    localStorage.removeItem('token');
     navigate('/')
+    setAuthStatus(null)
     setDropdownOpen(false)
     refreshAuthState();
   }

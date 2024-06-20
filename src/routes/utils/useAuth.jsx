@@ -34,6 +34,7 @@ const useAuth = () => {
             }
         } else {
             setIsAuthenticated(false);
+            setIsAdmin(false);
         }
         setIsLoading(false);
     }, []);
