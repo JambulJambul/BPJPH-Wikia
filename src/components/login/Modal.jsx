@@ -6,16 +6,13 @@ import { AnimatePresence, motion } from 'framer-motion';
 import axios from 'axios';
 import { jwtDecode } from 'jwt-decode';
 
-const Modal = ({ isOpen, onClose }) => {
-
+const AuthModal = ({ isOpen, onClose }) => {
+  const [isLoginMode, setIsLoginMode] = useState(true);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
-  const [user, setUser] = useState(null);
   const [error, setError] = useState(null);
 
-
-  const history = useNavigate();
+  const navigate = useNavigate();
 
   const handleLogin = async () => {
     try {
@@ -30,22 +27,41 @@ const Modal = ({ isOpen, onClose }) => {
       pushPage(role);
       onClose();
     } catch (error) {
-      setError(error);
+      setError(error.response?.data?.message || 'Login failed. Please try again.');
+    }
+  };
+
+  const handleRegister = async () => {
+    try {
+      const response = await axios.post(`${process.env.REACT_APP_API_URL}/users/register`, {
+        email,
+        password
+      });
+      console.log('Registration successful:', response.data);
+      alert('Registration successful! You can now log in.');
+      setEmail('');
+      setPassword('');
+      setIsLoginMode(true);
+    } catch (error) {
+      setError(error.response?.data?.message || 'Registration failed. Please try again.');
     }
   };
 
   const pushPage = (role) => {
     if (role === '1') {
-      history('/admin');
+      navigate('/admin');
     } else {
-      history('/my-profile');
+      navigate('/my-profile');
     }
-  }
+  };
 
-  const handleLogout = () => {
-    localStorage.removeItem('token');
-    setUser(null);
-    history.push('/');
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (isLoginMode) {
+      handleLogin();
+    } else {
+      handleRegister();
+    }
   };
 
   return (
@@ -67,37 +83,30 @@ const Modal = ({ isOpen, onClose }) => {
             >
               <div className="flex flex-col my-4 text-center">
                 <h2 className="text-xl md:text-3xl font-bold tracking-widest">
-                  Admin Login
+                  {isLoginMode ? 'Admin Login' : 'Register Admin'}
                 </h2>
               </div>
-              <div className="flex flex-col max-w-md space-y-5">
+              <form className="flex flex-col max-w-md space-y-5" onSubmit={handleSubmit}>
                 <input
                   type="email"
                   placeholder="Email"
+                  value={email}
                   className="flex px-3 py-2 md:px-4 md:py-3 border-2 border-black rounded-lg font-light placeholder-font-normal"
                   onChange={(e) => setEmail(e.target.value)}
                 />
                 <input
                   type="password"
                   placeholder="Password"
+                  value={password}
                   className="flex px-3 py-2 md:px-4 md:py-3 border-2 border-black rounded-lg font-light placeholder-font-normal"
                   onChange={(e) => setPassword(e.target.value)}
                 />
-                {user ? (
-                  <button
-                    onClick={handleLogout}
-                    className="flex items-center justify-center flex-none px-3 py-2 md:px-4 md:py-3 border-1 rounded-lg font-medium text-red-600 transition-all duration-300 hover:text-red-800"
-                  >
-                    Logout
-                  </button>
-                ) : (
-                  <button
-                    onClick={handleLogin}
-                    className="flex items-center justify-center flex-none px-3 py-2 md:px-4 md:py-3 border-1 rounded-lg font-medium bg-blue-600 text-gray-100 transition-all duration-300 hover:bg-blue-700 hover:text-white"
-                  >
-                    Login
-                  </button>
-                )}
+                <button
+                  type="submit"
+                  className="flex items-center justify-center flex-none px-3 py-2 md:px-4 md:py-3 border-1 rounded-lg font-medium bg-blue-600 text-gray-100 transition-all duration-300 hover:bg-blue-700 hover:text-white"
+                >
+                  {isLoginMode ? 'Login' : 'Register'}
+                </button>
                 {error && (
                   <p className="text-red-500 text-sm">
                     {error}
@@ -114,9 +123,14 @@ const Modal = ({ isOpen, onClose }) => {
                 >
                   Close
                 </motion.button>
-              </div>
+              </form>
               <div className="text-center">
-                <Link to="/register" className="text-blue-600 hover:underline">Register as Admin</Link>
+                <button 
+                  onClick={() => setIsLoginMode(!isLoginMode)}
+                  className="text-blue-600 hover:underline"
+                >
+                  {isLoginMode ? 'Register' : 'Login'}
+                </button>
               </div>
             </motion.div>
           </motion.div>
@@ -126,4 +140,4 @@ const Modal = ({ isOpen, onClose }) => {
   );
 };
 
-export default Modal;
+export default AuthModal;

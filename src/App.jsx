@@ -34,7 +34,7 @@ function App() {
         <Route exact path="/" element={<Dictionary />} />
         <Route path="/article/:id" element={<Article />} />
         <Route path="/my-profile" element={<ProtectedRoute><MyProfile /></ProtectedRoute>} />
-        <Route path="/register" element={<Register />} />
+        {/* <Route path="/register" element={<Register />} /> */}
         <Route path="/admin" element={
           <ProtectedRoute adminOnly>
             <AdminHome />
