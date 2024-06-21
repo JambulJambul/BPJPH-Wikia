@@ -10,7 +10,7 @@ const Navbar = () => {
   const [authStatus, setAuthStatus] = useState(null);
   const [usernameDisplay, setusernameDisplay] = useState(null);
   const [dropdownOpen, setDropdownOpen] = useState(false);
-  const { isAuthenticated, isAdmin, isLoading, usernameAuth, refreshAuthState } = useAuth();
+  const { isAuthenticated, isAdmin, isLoading, userData, refreshAuthState } = useAuth();
 
   const navigate = useNavigate();
 
@@ -18,7 +18,7 @@ const Navbar = () => {
     if (!isLoading) {
       if (isAuthenticated) {
         setAuthStatus(isAdmin ? 'admin' : 'user');
-        setusernameDisplay(usernameAuth)
+        setusernameDisplay(userData?.username)
       } else {
         setAuthStatus('guest');
       }

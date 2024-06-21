@@ -6,14 +6,15 @@ const useAuth = () => {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [isAdmin, setIsAdmin] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
-    const [usernameAuth, setUsernameAuth] = useState(null)
+    const [userData, setUserData] = useState(null)
 
     const refreshAuthState = useCallback(async () => {
         setIsLoading(true);
         const token = localStorage.getItem('token');
         if (token) {
-            const { role, username } = jwtDecode(token)
-            setUsernameAuth(username)
+            const { role } = jwtDecode(token)
+            const tokenObj = jwtDecode(token)
+            setUserData(tokenObj)
             setIsAuthenticated(true);
             if (role === '1') {
                 try {
@@ -43,7 +44,7 @@ const useAuth = () => {
         refreshAuthState();
     }, [refreshAuthState]);
 
-    return { isAuthenticated, isAdmin, isLoading, usernameAuth, refreshAuthState };
+    return { isAuthenticated, isAdmin, isLoading, userData, refreshAuthState };
 };
 
 export default useAuth;

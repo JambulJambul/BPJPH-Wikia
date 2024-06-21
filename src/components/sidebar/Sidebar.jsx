@@ -7,7 +7,7 @@ const Sidebar = () => {
     const sidebarItems = [
         { icon: FaHome, title: "Dashboard", urlTo: "/admin" },
         { icon: FaUser, title: "Users", urlTo: "/admin/users" },
-        { icon: FaScroll, title: "Articles", urlTo: "/admin" },
+        { icon: FaScroll, title: "Articles", urlTo: "/admin/articles" },
     ];
 
     return (

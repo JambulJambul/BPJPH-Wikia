@@ -6,15 +6,13 @@ const AdminUsers = () => {
     const [users, setUsers] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const usersPerPage = 10;
+    const token = localStorage.getItem('token');
+    const AuthStr = 'Bearer '.concat(token);
 
     useEffect(() => {
         const fetchUsers = async () => {
-            // axios.get(`${process.env.REACT_APP_API_URL}/users/`)
-            const fetchedUsers = Array.from({ length: 50 }, (_, i) => ({
-                id: i + 1,
-                name: `User ${i + 1}`,
-                email: `user${i + 1}@example.com`,
-            }));
+            const response = await axios.get(`${process.env.REACT_APP_API_URL}/users/`, { headers: { Authorization: AuthStr } })
+            const fetchedUsers = response?.data?.data
             setUsers(fetchedUsers);
         };
 
@@ -41,14 +39,16 @@ const AdminUsers = () => {
                                 <th className="py-2 px-4">ID</th>
                                 <th className="py-2 px-4">Name</th>
                                 <th className="py-2 px-4">Email</th>
+                                <th className="py-2 px-4">Role</th>
                             </tr>
                         </thead>
                         <tbody>
                             {currentUsers.map(user => (
                                 <tr key={user.id} className="border-t">
                                     <td className="text-center py-2 px-4">{user.id}</td>
-                                    <td className="text-center py-2 px-4">{user.name}</td>
+                                    <td className="text-center py-2 px-4">{user.username}</td>
                                     <td className="text-center py-2 px-4">{user.email}</td>
+                                    <td className="text-center py-2 px-4">{user.role === '1' ? 'Admin' : 'User'}</td>
                                 </tr>
                             ))}
                         </tbody>

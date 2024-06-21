@@ -81,7 +81,7 @@ const AuthModal = ({ isOpen, onClose }) => {
             >
               <div className="flex flex-col my-4 text-center">
                 <h2 className="text-xl md:text-3xl font-bold tracking-widest">
-                  {isLoginMode ? 'Admin Login' : 'Register Admin'}
+                  {isLoginMode ? 'Login' : 'Register'}
                 </h2>
               </div>
               <form className="flex flex-col max-w-md space-y-5" onSubmit={handleSubmit}>
