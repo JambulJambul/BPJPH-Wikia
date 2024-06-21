@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import useAuth from './utils/useAuth';
+import SuccessModal from '../components/successModal';
 import { FaUserCircle } from "react-icons/fa";
 import { Link } from 'react-router-dom';
 import axios from 'axios';
@@ -11,6 +12,8 @@ const MyProfile = () => {
 
   const [showAllArticles, setShowAllArticles] = useState(false);
   const [displayedArticlesCount, setDisplayedArticlesCount] = useState(4);
+
+  const [successModalOpen, setSuccessModalOpen] = useState(false);
 
   const [formData, setFormData] = useState({
     title: '',
@@ -41,7 +44,8 @@ const MyProfile = () => {
   const createArticle = async () => {
     try {
       console.log(formData)
-      await axios.post(`${process.env.REACT_APP_API_URL}/entries/`, formData, { headers: { 'Content-Type': 'multipart/form-data', Authorization: AuthStr } });
+      const response = await axios.post(`${process.env.REACT_APP_API_URL}/entries/`, formData, { headers: { 'Content-Type': 'multipart/form-data', Authorization: AuthStr } });
+      setSuccessModalOpen(true)
       setFormData({
         title: '',
         content: '',
@@ -102,6 +106,10 @@ const MyProfile = () => {
       img: '',
     });
     setActiveTab('edit')
+  }
+
+  const closeSuccessModal = () => {
+    setSuccessModalOpen(false)
   }
 
   return (
@@ -341,6 +349,7 @@ const MyProfile = () => {
           </div>
         </div>
       </div>
+      <SuccessModal isOpen={successModalOpen} onClose={closeSuccessModal} />
     </>
   )
 }
