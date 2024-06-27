@@ -1,23 +1,26 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
 import axios from 'axios';
 import { jwtDecode } from 'jwt-decode';
+
+import encryptPayload from '../../routes/utils/encryption';
 
 const AuthModal = ({ isOpen, onClose }) => {
   const [isLoginMode, setIsLoginMode] = useState(true);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [username, setUsername] = useState('');
   const [error, setError] = useState(null);
 
   const navigate = useNavigate();
 
   const handleLogin = async () => {
     try {
-      const response = await axios.post(`${process.env.REACT_APP_API_URL}/users/login`, {
-        email,
-        password,
-      });
+      const data = { email, password }
+      const encryptedData = encryptPayload(data)
+      console.log(encryptedData)
+      const response = await axios.post(`${process.env.REACT_APP_API_URL}/users/login`, {encryptedData});
       const token = response?.data?.token;
       localStorage.setItem('token', token);
       const decodedToken = jwtDecode(token);
@@ -31,14 +34,14 @@ const AuthModal = ({ isOpen, onClose }) => {
 
   const handleRegister = async () => {
     try {
-      const response = await axios.post(`${process.env.REACT_APP_API_URL}/users/register`, {
-        email,
-        password
-      });
+      const data = { email, password, username }
+      const encryptedData = encryptPayload(data)
+      const response = await axios.post(`${process.env.REACT_APP_API_URL}/users/register`, {encryptedData});
       console.log('Registration successful:', response.data);
       alert('Registration successful! You can now log in.');
       setEmail('');
       setPassword('');
+      setUsername('');
       setIsLoginMode(true);
     } catch (error) {
       setError(error.response?.data?.message || 'Registration failed. Please try again.');
@@ -60,6 +63,13 @@ const AuthModal = ({ isOpen, onClose }) => {
     } else {
       handleRegister();
     }
+  };
+
+  const switchLoginRegister = () => {
+    setEmail('');
+    setPassword('');
+    setUsername('');
+    setIsLoginMode(!isLoginMode)
   };
 
   return (
@@ -92,6 +102,15 @@ const AuthModal = ({ isOpen, onClose }) => {
                   className="flex px-3 py-2 md:px-4 md:py-3 border-2 border-black rounded-lg font-light placeholder-font-normal"
                   onChange={(e) => setEmail(e.target.value)}
                 />
+                {!isLoginMode && (
+                  <input
+                    type="text"
+                    placeholder="Username"
+                    value={username}
+                    className="flex px-3 py-2 md:px-4 md:py-3 border-2 border-black rounded-lg font-light placeholder-font-normal"
+                    onChange={(e) => setUsername(e.target.value)}
+                  />
+                )}
                 <input
                   type="password"
                   placeholder="Password"
@@ -117,14 +136,14 @@ const AuthModal = ({ isOpen, onClose }) => {
                 </div>
               </form>
               <motion.button
-                  className="text-gray-500 hover:text-gray-700 font-medium transition-all duration-300"
-                  onClick={onClose}
-                >
-                  Close
-                </motion.button>
+                className="text-gray-500 hover:text-gray-700 font-medium transition-all duration-300"
+                onClick={onClose}
+              >
+                Close
+              </motion.button>
               <div className="text-center">
-                <button 
-                  onClick={() => setIsLoginMode(!isLoginMode)}
+                <button
+                  onClick={switchLoginRegister}
                   className="text-blue-600 hover:underline"
                 >
                   {isLoginMode ? 'Register' : 'Login'}

@@ -26,11 +26,11 @@ const AdminUsers = () => {
     const totalPages = Math.ceil(users.length / usersPerPage);
 
     return (
-        <div className="flex pt-24">
+        <div className="flex pt-16">
             <div className="w-64">
                 <Sidebar />
             </div>
-            <div className="max-w-[1440px] mx-auto py-16 px-24 flex-1">
+            <div className="mx-auto py-16 px-24 flex-1">
                 <h2 className="text-2xl mb-8">Users</h2>
                 <div className="bg-white p-6 rounded-lg shadow-md">
                     <table className="min-w-full">
