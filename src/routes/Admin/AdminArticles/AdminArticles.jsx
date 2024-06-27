@@ -1,20 +1,32 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Sidebar } from '../../../components';
 import { FaArrowRight } from "react-icons/fa";
 import { FaArrowLeft } from "react-icons/fa";
+import { Link } from 'react-router-dom';
+
+import { Sidebar } from '../../../components';
+import ReviewModal from './components/ReviewModal';
 
 const AdminArticles = () => {
-    const [articles, setArticles] = useState([]);
+    const [publishedArticles, setPublishedArticles] = useState([]);
+    const [toBeReviewedArticles, setToBeReviewedArticles] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [selectedArticle, setSelectedArticle] = useState(null);
+    const [activeTab, setActiveTab] = useState('published');
+    const [reviewModalOpen, setReviewModalOpen] = useState(false);
+    const [articleActionType, setArticleActionType] = useState(null);
+
     const articlesPerPage = 6;
 
     useEffect(() => {
         const fetchArticles = async () => {
             try {
                 const response = await axios.get(`${process.env.REACT_APP_API_URL}/entries/`)
-                setArticles(response?.data);
+                const allArticles = response?.data;
+                const published = allArticles.filter(article => article.status === '1');
+                const toBeReviewed = allArticles.filter(article => article.status === '0');
+                setPublishedArticles(published);
+                setToBeReviewedArticles(toBeReviewed);
             } catch (error) {
                 console.log(error)
             }
@@ -25,13 +37,29 @@ const AdminArticles = () => {
 
     const indexOfLastArticle = currentPage * articlesPerPage;
     const indexOfFirstArticle = indexOfLastArticle - articlesPerPage;
-    const currentArticles = articles.slice(indexOfFirstArticle, indexOfLastArticle);
+    const currentArticles = activeTab === 'published' ? publishedArticles.slice(indexOfFirstArticle, indexOfLastArticle) : toBeReviewedArticles.slice(indexOfFirstArticle, indexOfLastArticle);
 
-    const totalPages = Math.ceil(articles.length / articlesPerPage);
+    const totalPages = Math.ceil((activeTab === 'published' ? publishedArticles.length : toBeReviewedArticles.length) / articlesPerPage);
 
     const handleArticleClick = (article) => {
         setSelectedArticle(article);
     };
+
+    const changeTab = (tab) => {
+        setSelectedArticle(null)
+        setActiveTab(tab);
+        setCurrentPage(1);
+    }
+
+    const openReviewModal = (actionType) => {
+        setArticleActionType(actionType)
+        setReviewModalOpen(true)
+    }
+
+    const closeReviewModal = () => {
+        setArticleActionType(null)
+        setReviewModalOpen(false)
+    }
 
     return (
         <>
@@ -41,6 +69,22 @@ const AdminArticles = () => {
                 </div>
                 <div className="mx-auto py-16 px-24 flex-1 ">
                     <h2 className="text-2xl mb-8">Articles</h2>
+                    <div className="flex justify-between items-center my-5">
+                        <button
+                            onClick={() => changeTab('published')}
+                            className={`${activeTab === 'published' ? 'bg-blue-500 text-white' : 'bg-blue-300 text-slate-800'
+                                } rounded-l transition duration-150 ease-in font-medium text-sm text-center w-full py-3`}
+                        >
+                            Published Articles
+                        </button>
+                        <button
+                            onClick={() => changeTab('toBeReviewed')}
+                            className={`${activeTab === 'toBeReviewed' ? 'bg-blue-400 text-white' : 'bg-blue-300 text-slate-800'
+                                } rounded-r transition duration-150 ease-in font-medium text-sm text-center w-full py-3`}
+                        >
+                            To be reviewed
+                        </button>
+                    </div>
                     <div className='flex'>
                         <div className='flex-initial pr-10'>
                             <div>
@@ -74,21 +118,41 @@ const AdminArticles = () => {
                         <div className='flex-auto h-[75vh] p-4'>
                             {selectedArticle ? (
                                 <div>
-                                    <h2 className="text-2xl font-bold">{selectedArticle?.title}</h2>
+                                    <h2 className="text-2xl font-bold mb-4">{selectedArticle?.title}</h2>
                                     {selectedArticle?.img ?
                                         (
                                             <>
-                                                <img src={selectedArticle?.img} alt={selectedArticle?.title} className="h-64" />
-
+                                                <img src={selectedArticle?.img} alt={selectedArticle?.title} className="h-64 my-2 border-solid border border-slate-400" />
                                             </>
                                         ) : (<>
-                                            <div className='inline-block p-32 border-solid border border-slate-400'>
+                                            <div className='inline-block p-32 border-solid border border-slate-400 my-2'>
                                                 <p>No image provided...</p>
                                             </div>
                                         </>)}
                                     <p>{selectedArticle?.content}</p>
-                                    <p className="mt-4">Article ID: {selectedArticle?.id}</p>
-                                    <p className="mt-4">References: {selectedArticle?.references}</p>
+                                    <p className="my-4">Article ID: {selectedArticle?.id}</p>
+                                    <p className="my-4">References: <Link to={selectedArticle?.references}> {selectedArticle?.references} </Link></p>
+                                    <div className='my-4'>
+                                        {
+                                            activeTab === 'published' ? (
+                                                <>
+                                                
+                                                </>
+                                            ) : (
+                                                <>
+                                                    <div className='flex gap-8'>
+                                                        <button onClick={() => openReviewModal('reject')} className='px-4 py-2 rounded-xl bg-red-500 text-white'>
+                                                            Reject
+                                                        </button>
+                                                        <button onClick={() => openReviewModal('accept')} className='px-4 py-2 rounded-xl bg-green-500 text-white'>
+                                                            Accept
+                                                        </button>
+                                                    </div>
+                                                    <ReviewModal isOpen={reviewModalOpen} onClose={closeReviewModal} id={selectedArticle?.id} actionType={articleActionType} />
+                                                </>
+                                            )
+                                        }
+                                    </div>
                                 </div>
                             ) : (
                                 <div className='flex flex-col justify-center h-full'>
@@ -106,31 +170,3 @@ const AdminArticles = () => {
 }
 
 export default AdminArticles
-
-{/* <div className="bg-white p-6 rounded-lg shadow-md">
-                        <table className="min-w-full">
-                            <thead>
-                                <tr>
-                                    <th className="py-2 px-4">ID</th>
-                                    <th className="py-2 px-4">Creator ID</th>
-                                    <th className="py-2 px-4">Title</th>
-                                    <th className="py-2 px-4">Content</th>
-                                    <th className="py-2 px-4">References</th>
-                                    <th className="py-2 px-4">Image URL</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {currentArticles.map(article => (
-                                    <tr key={article.id} className="border-t">
-                                        <td className="text-center py-2 px-4">{article.id}</td>
-                                        <td className="text-center py-2 px-4">{article.user_id}</td>
-                                        <td className="text-center py-2 px-4">{article.title}</td>
-                                        <td className="text-center py-2 px-4">{article.content}</td>
-                                        <td className="text-center py-2 px-4">{article.references}</td>
-                                        <td className="text-center py-2 px-4">{article.img}</td>
-                                    </tr>
-                                ))}
-                            </tbody>
-                        </table>
-                        
-                    </div> */}

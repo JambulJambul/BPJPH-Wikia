@@ -20,7 +20,7 @@ const AuthModal = ({ isOpen, onClose }) => {
       const data = { email, password }
       const encryptedData = encryptPayload(data)
       console.log(encryptedData)
-      const response = await axios.post(`${process.env.REACT_APP_API_URL}/users/login`, {encryptedData});
+      const response = await axios.post(`${process.env.REACT_APP_API_URL}/users/login`, { encryptedData });
       const token = response?.data?.token;
       localStorage.setItem('token', token);
       const decodedToken = jwtDecode(token);
@@ -36,7 +36,7 @@ const AuthModal = ({ isOpen, onClose }) => {
     try {
       const data = { email, password, username }
       const encryptedData = encryptPayload(data)
-      const response = await axios.post(`${process.env.REACT_APP_API_URL}/users/register`, {encryptedData});
+      const response = await axios.post(`${process.env.REACT_APP_API_URL}/users/register`, { encryptedData });
       console.log('Registration successful:', response.data);
       alert('Registration successful! You can now log in.');
       setEmail('');
@@ -72,6 +72,12 @@ const AuthModal = ({ isOpen, onClose }) => {
     setIsLoginMode(!isLoginMode)
   };
 
+  const handleOverlayClick = (event) => {
+    if (event.target === event.currentTarget) {
+      onClose();
+    }
+  };
+
   return (
     <>
       <AnimatePresence>
@@ -82,7 +88,7 @@ const AuthModal = ({ isOpen, onClose }) => {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
           >
-            <div className="fixed inset-0 bg-black opacity-40"></div>
+            <div className="fixed inset-0 bg-black opacity-40" onClick={handleOverlayClick}></div>
             <motion.div
               className="flex flex-1 flex-col justify-center space-y-5 bg-gray-100 p-12 rounded-md max-w-md z-50"
               initial={{ scale: 0.5, y: -100 }}
