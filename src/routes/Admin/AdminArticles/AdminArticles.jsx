@@ -10,6 +10,7 @@ import ReviewModal from './components/ReviewModal';
 const AdminArticles = () => {
     const [publishedArticles, setPublishedArticles] = useState([]);
     const [toBeReviewedArticles, setToBeReviewedArticles] = useState([]);
+    const [pendingArticles, setPendingArticles] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [selectedArticle, setSelectedArticle] = useState(null);
     const [activeTab, setActiveTab] = useState('published');
@@ -18,28 +19,39 @@ const AdminArticles = () => {
 
     const articlesPerPage = 6;
 
-    useEffect(() => {
-        const fetchArticles = async () => {
-            try {
-                const response = await axios.get(`${process.env.REACT_APP_API_URL}/entries/`)
-                const allArticles = response?.data;
-                const published = allArticles.filter(article => article.status === '1');
-                const toBeReviewed = allArticles.filter(article => article.status === '0');
-                setPublishedArticles(published);
-                setToBeReviewedArticles(toBeReviewed);
-            } catch (error) {
-                console.log(error)
-            }
-        };
+    const fetchArticles = async () => {
+        try {
+            const response = await axios.get(`${process.env.REACT_APP_API_URL}/entries/`)
+            const allArticles = response?.data;
+            const pending = allArticles.filter(article => article.status === '2');
+            const published = allArticles.filter(article => article.status === '1');
+            const toBeReviewed = allArticles.filter(article => article.status === '0');
+            setPendingArticles(pending);
+            setPublishedArticles(published);
+            setToBeReviewedArticles(toBeReviewed);
+        } catch (error) {
+            console.log(error)
+        }
+    };
 
+    useEffect(() => {
         fetchArticles();
     }, []);
 
     const indexOfLastArticle = currentPage * articlesPerPage;
     const indexOfFirstArticle = indexOfLastArticle - articlesPerPage;
-    const currentArticles = activeTab === 'published' ? publishedArticles.slice(indexOfFirstArticle, indexOfLastArticle) : toBeReviewedArticles.slice(indexOfFirstArticle, indexOfLastArticle);
 
-    const totalPages = Math.ceil((activeTab === 'published' ? publishedArticles.length : toBeReviewedArticles.length) / articlesPerPage);
+    let currentArticles = [];
+    if (activeTab === 'published') {
+        currentArticles = publishedArticles.slice(indexOfFirstArticle, indexOfLastArticle);
+    } else if (activeTab === 'toBeReviewed') {
+        currentArticles = toBeReviewedArticles.slice(indexOfFirstArticle, indexOfLastArticle);
+    } else if (activeTab === 'pending') {
+        currentArticles = pendingArticles.slice(indexOfFirstArticle, indexOfLastArticle);
+    }
+
+    const totalPages = Math.ceil((activeTab === 'published' ? publishedArticles.length : activeTab === 'toBeReviewed' ? toBeReviewedArticles.length : pendingArticles.length) / articlesPerPage);
+
 
     const handleArticleClick = (article) => {
         setSelectedArticle(article);
@@ -56,7 +68,11 @@ const AdminArticles = () => {
         setReviewModalOpen(true)
     }
 
-    const closeReviewModal = () => {
+    const closeReviewModal = (updated) => {
+        if (updated === true) {
+            setSelectedArticle(null)
+            fetchArticles()
+        }
         setArticleActionType(null)
         setReviewModalOpen(false)
     }
@@ -80,9 +96,16 @@ const AdminArticles = () => {
                         <button
                             onClick={() => changeTab('toBeReviewed')}
                             className={`${activeTab === 'toBeReviewed' ? 'bg-blue-400 text-white' : 'bg-blue-300 text-slate-800'
-                                } rounded-r transition duration-150 ease-in font-medium text-sm text-center w-full py-3`}
+                                } border-x-2 border-white transition duration-150 ease-in font-medium text-sm text-center w-full py-3`}
                         >
                             To be reviewed
+                        </button>
+                        <button
+                            onClick={() => changeTab('pending')}
+                            className={`${activeTab === 'pending' ? 'bg-blue-400 text-white' : 'bg-blue-300 text-slate-800'
+                                } rounded-r transition duration-150 ease-in font-medium text-sm text-center w-full py-3`}
+                        >
+                            Pending
                         </button>
                     </div>
                     <div className='flex'>
@@ -136,9 +159,9 @@ const AdminArticles = () => {
                                         {
                                             activeTab === 'published' ? (
                                                 <>
-                                                
+
                                                 </>
-                                            ) : (
+                                            ) : activeTab === 'toBeReviewed' ? (
                                                 <>
                                                     <div className='flex gap-8'>
                                                         <button onClick={() => openReviewModal('reject')} className='px-4 py-2 rounded-xl bg-red-500 text-white'>
@@ -149,6 +172,10 @@ const AdminArticles = () => {
                                                         </button>
                                                     </div>
                                                     <ReviewModal isOpen={reviewModalOpen} onClose={closeReviewModal} id={selectedArticle?.id} actionType={articleActionType} />
+                                                </>
+                                            ) : (
+                                                <>
+
                                                 </>
                                             )
                                         }

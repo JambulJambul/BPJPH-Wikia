@@ -19,7 +19,6 @@ const AuthModal = ({ isOpen, onClose }) => {
     try {
       const data = { email, password }
       const encryptedData = encryptPayload(data)
-      console.log(encryptedData)
       const response = await axios.post(`${process.env.REACT_APP_API_URL}/users/login`, { encryptedData });
       const token = response?.data?.token;
       localStorage.setItem('token', token);

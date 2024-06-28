@@ -17,7 +17,8 @@ const Dictionary = () => {
   useEffect(() => {
     axios.get(`${process.env.REACT_APP_API_URL}/entries/`)
       .then((response) => {
-        setArticlesData(response.data)
+        const filteredArticles = response.data.filter(article => article.status === '1');
+        setArticlesData(filteredArticles);
         setIsLoading(false)
       })
       .catch((error) => {
@@ -32,9 +33,9 @@ const Dictionary = () => {
   }
 
   const filteredArticles = articlesData.filter((article) =>
-    (article.title?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-     article.content?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-     article.references?.toLowerCase().includes(searchTerm.toLowerCase()))
+  (article.title?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    article.content?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    article.references?.toLowerCase().includes(searchTerm.toLowerCase()))
   )
 
   const indexOfLastArticle = currentPage * articlesPerPage
