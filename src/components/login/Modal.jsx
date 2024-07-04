@@ -25,7 +25,7 @@ const AuthModal = ({ isOpen, onClose }) => {
       const decodedToken = jwtDecode(token);
       const { role } = decodedToken;
       pushPage(role);
-      onClose();
+      handleOnClose();
     } catch (error) {
       setError(error.response?.data?.message || 'Login failed. Please try again.');
     }
@@ -34,6 +34,7 @@ const AuthModal = ({ isOpen, onClose }) => {
   const handleRegister = async () => {
     try {
       const data = { email, password, username }
+      console.log(data)
       const encryptedData = encryptPayload(data)
       const response = await axios.post(`${process.env.REACT_APP_API_URL}/users/register`, { encryptedData });
       console.log('Registration successful:', response.data);
@@ -68,14 +69,21 @@ const AuthModal = ({ isOpen, onClose }) => {
     setEmail('');
     setPassword('');
     setUsername('');
+    setError(null)
     setIsLoginMode(!isLoginMode)
   };
 
   const handleOverlayClick = (event) => {
     if (event.target === event.currentTarget) {
-      onClose();
+      handleOnClose();
     }
   };
+
+  const handleOnClose = () => {
+    setError(null)
+    setIsLoginMode(true)
+    onClose();
+  }
 
   return (
     <>
@@ -142,7 +150,7 @@ const AuthModal = ({ isOpen, onClose }) => {
               </form>
               <motion.button
                 className="text-gray-500 hover:text-gray-700 font-medium transition-all duration-300"
-                onClick={onClose}
+                onClick={handleOnClose}
               >
                 Close
               </motion.button>

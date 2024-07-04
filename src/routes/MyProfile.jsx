@@ -8,12 +8,17 @@ import axios from 'axios';
 const MyProfile = () => {
   const { userData } = useAuth();
   const [activeTab, setActiveTab] = useState('create');
+  const [modalActionType, setModalActionType] = useState(null);
   const [articles, setArticles] = useState([]);
 
   const [showAllArticles, setShowAllArticles] = useState(false);
   const [displayedArticlesCount, setDisplayedArticlesCount] = useState(4);
 
+  const [error, setError] = useState(null);
+  const [articleIdDelete, setArticleIdDelete] = useState(null);
   const [successModalOpen, setSuccessModalOpen] = useState(false);
+
+  const [imagePreview, setImagePreview] = useState(null);
 
   const [formData, setFormData] = useState({
     title: '',
@@ -33,8 +38,10 @@ const MyProfile = () => {
   }, []);
 
   const fetchArticles = async () => {
+    const token = localStorage.getItem('token');
+    const AuthStr = 'Bearer '.concat(token);
     try {
-      const response = await axios.get(`${process.env.REACT_APP_API_URL}/entries/`);
+      const response = await axios.get(`${process.env.REACT_APP_API_URL}/entries/entry/personal`, { headers: { Authorization: AuthStr } });
       setArticles(response.data);
     } catch (error) {
       console.error('Error fetching articles:', error);
@@ -43,8 +50,8 @@ const MyProfile = () => {
 
   const createArticle = async () => {
     try {
-      console.log(formData)
       const response = await axios.post(`${process.env.REACT_APP_API_URL}/entries/`, formData, { headers: { 'Content-Type': 'multipart/form-data', Authorization: AuthStr } });
+      setModalActionType('create')
       setSuccessModalOpen(true)
       setFormData({
         title: '',
@@ -52,42 +59,67 @@ const MyProfile = () => {
         references: '',
         img: null,
       });
+      setError(null)
       fetchArticles();
     } catch (error) {
-      console.error('Error creating article:', error);
+      setError(error.response?.data?.message || 'File upload failed. Please try again.');
     }
   };
 
   const editArticle = (article) => {
+    setImagePreview(null)
     setEditMode(true);
     setEditedArticle(article);
   };
 
   const updateArticle = async () => {
+    const token = localStorage.getItem('token');
+    const AuthStr = 'Bearer '.concat(token);
     try {
-      const updatedArticle = await axios.put(
+      let toUpload
+      let headers = {
+        Authorization: AuthStr
+      };
+      if (editedArticle.img instanceof File) {
+        toUpload = editedArticle
+        headers['Content-Type'] = 'multipart/form-data';
+      } else {
+        const { img, ...articleWithoutImg } = editedArticle;
+        toUpload = articleWithoutImg;
+      }
+      const response = await axios.put(
         `${process.env.REACT_APP_API_URL}/entries/${editedArticle.id}`,
-        editedArticle
+        editedArticle, { headers }
       );
-      const updatedArticles = articles.map((article) =>
-        article.id === updatedArticle.id ? updatedArticle : article
-      );
-      setArticles(updatedArticles);
-      setEditMode(false);
-      setEditedArticle(null);
+      if (response) {
+        setModalActionType('edit')
+        setSuccessModalOpen(true)
+        setEditMode(false);
+        setEditedArticle(null);
+        setError(null)
+        fetchArticles()
+      }
     } catch (error) {
-      console.error('Error updating article:', error);
+      setError(error.response?.data?.message || 'Update article failed. Please try again.');
     }
   };
 
   const deleteArticle = async (articleId) => {
+    const token = localStorage.getItem('token');
+    const AuthStr = 'Bearer '.concat(token);
     try {
-      await axios.delete(`${process.env.REACT_APP_API_URL}/entries/${articleId}`);
+      await axios.delete(`${process.env.REACT_APP_API_URL}/entries/${articleId}`, { headers: { Authorization: AuthStr } });
       fetchArticles();
     } catch (error) {
       console.error('Error deleting article:', error);
     }
   };
+
+  const openDeleteModal = (articleId) => {
+    setArticleIdDelete(articleId)
+    setModalActionType('delete')
+    setSuccessModalOpen(true)
+  }
 
   const toggleShowMore = () => {
     setShowAllArticles(!showAllArticles);
@@ -98,6 +130,12 @@ const MyProfile = () => {
     }
   };
 
+  const openCreateTab = () => {
+    setActiveTab('create')
+    setImagePreview(null)
+    setEditedArticle(null)
+  }
+
   const openEditTab = () => {
     setFormData({
       title: '',
@@ -106,11 +144,33 @@ const MyProfile = () => {
       img: '',
     });
     setActiveTab('edit')
+    setError(null)
   }
 
-  const closeSuccessModal = () => {
+  const closeSuccessModal = (isDelete) => {
+    if(isDelete)
+      {
+        deleteArticle(articleIdDelete)
+      }
+    setModalActionType(null)
+    setArticleIdDelete(null)
     setSuccessModalOpen(false)
   }
+
+  const handleFileChange = (e, actionType) => {
+    const file = e.target.files[0];
+    if (actionType == "edit") {
+      setEditedArticle({ ...editedArticle, img: file });
+    } else if (actionType == "create") {
+      setFormData({ ...formData, img: file });
+    }
+
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      setImagePreview(reader.result);
+    };
+    reader.readAsDataURL(file);
+  };
 
   return (
     <>
@@ -126,7 +186,7 @@ const MyProfile = () => {
               </h1>
               <div className="flex justify-between items-center my-5 px-6">
                 <button
-                  onClick={() => setActiveTab('create')}
+                  onClick={openCreateTab}
                   className={`${activeTab === 'create' ? 'bg-gray-100' : 'bg-transparent'
                     } text-gray-500 hover:text-gray-900 rounded transition duration-150 ease-in font-medium text-sm text-center w-full py-3`}
                 >
@@ -182,14 +242,20 @@ const MyProfile = () => {
                           setFormData({ ...formData, references: e.target.value })
                         }
                       />
+                      <div className='flex justify-center'>
+                        {imagePreview && <img src={imagePreview} alt="" />}
+                      </div>
                       <input
                         type="file"
                         name="img"
                         className="w-full px-4 py-2 border rounded-md mb-8"
-                        onChange={(e) =>
-                          setFormData({ ...formData, img: e.target.files[0] })
-                        }
+                        onChange={(e) => handleFileChange(e, "create")}
                       />
+                      {error && (
+                        <p className="text-red-500 text-sm">
+                          {error}
+                        </p>
+                      )}
                       <div className="flex flex-row justify-center items-center">
                         <button
                           type="submit"
@@ -230,13 +296,13 @@ const MyProfile = () => {
                         </Link>
                         <button
                           onClick={() => editArticle(article)}
-                          className="text-blue-500 hover:text-blue-700 mt-4 px-6 py-2 rounded-md z-50"
+                          className="text-blue-500 hover:text-blue-700 mt-4 px-6 py-2"
                         >
                           Edit
                         </button>
                         <button
-                          onClick={() => deleteArticle(article.id)}
-                          className="text-red-500 hover:text-red-700 mt-4 px-6 py-2 rounded-md z-50"
+                          onClick={() => openDeleteModal(article.id)}
+                          className="text-red-500 hover:text-red-700 mt-4 px-6 py-2"
                         >
                           Delete
                         </button>
@@ -269,7 +335,28 @@ const MyProfile = () => {
                       <h1 className="text-xl text-gray-700 text-center my-6">
                         Edit Article
                       </h1>
-                      <form onSubmit={updateArticle}>
+                      <form onSubmit={(e) => {
+                        e.preventDefault()
+                        updateArticle()
+                      }}>
+                        <div className='flex flex-col items-center justify-center py-4'>
+                          {imagePreview && <img src={imagePreview} alt="" />}
+                          <img src={editedArticle.img} alt="" />
+                          <div className='px-4 py-2 mt-4 mb-8 relative'>
+                            <input
+                              type="file"
+                              name="img"
+                              className="absolute inset-0 opacity-0"
+                              onChange={(e) => handleFileChange(e, "edit")}
+                            />
+                            <label
+                              htmlFor="img"
+                              className="px-4 py-2 bg-blue-500 text-white rounded-md cursor-pointer"
+                            >
+                              Change Image
+                            </label>
+                          </div>
+                        </div>
                         <input
                           type="text"
                           name="title"
@@ -309,19 +396,11 @@ const MyProfile = () => {
                             })
                           }
                         />
-                        <input
-                          type="text"
-                          name="img"
-                          placeholder="Image URL"
-                          className="w-full px-4 py-2 border rounded-md mb-8"
-                          value={editedArticle.img}
-                          onChange={(e) =>
-                            setEditedArticle({
-                              ...editedArticle,
-                              img: e.target.value,
-                            })
-                          }
-                        />
+                        {error && (
+                          <p className="text-red-500 text-sm">
+                            {error}
+                          </p>
+                        )}
                         <div className="flex flex-row justify-center items-center space-x-7">
                           <button
                             type="submit"
@@ -333,6 +412,7 @@ const MyProfile = () => {
                             type="button"
                             className="bg-red-600 hover:bg-red-700 text-white mt-4 px-6 py-2 rounded-md"
                             onClick={() => {
+                              setError(null)
                               setEditMode(false);
                               setEditedArticle(null);
                             }}
@@ -349,7 +429,7 @@ const MyProfile = () => {
           </div>
         </div>
       </div>
-      <SuccessModal isOpen={successModalOpen} onClose={closeSuccessModal} />
+      <SuccessModal isOpen={successModalOpen} onClose={closeSuccessModal} eventType={modalActionType} />
     </>
   )
 }
