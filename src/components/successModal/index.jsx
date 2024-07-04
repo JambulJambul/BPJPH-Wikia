@@ -18,7 +18,7 @@ const SuccessModal = ({ isOpen, onClose, eventType }) => {
                     <div className="bg-white p-6 rounded-lg shadow-lg z-50 flex flex-col items-center gap-8">
                         <h1 className="text-xl text-center">
                             <h1 className="text-xl text-center">
-                                {eventType === 'create' ? 'Article created successfully!'
+                                {eventType === 'create' ? 'Article created successfully! \n Please wait for admin review.'
                                     : eventType === 'edit' ? 'Article edited successfully!'
                                         : eventType === 'delete' ? 'Are you sure to delete article?'
                                             : 'Empty Modal'}

@@ -145,7 +145,7 @@ const AdminArticles = () => {
                                     {selectedArticle?.img ?
                                         (
                                             <>
-                                                <img src={selectedArticle?.img} alt={selectedArticle?.title} className="h-64 my-2 border-solid border border-slate-400" />
+                                                <img loading='lazy' src={selectedArticle?.img} alt={selectedArticle?.title} className="h-64 my-2 border-solid border border-slate-400" />
                                             </>
                                         ) : (<>
                                             <div className='inline-block p-32 border-solid border border-slate-400 my-2'>
@@ -159,7 +159,9 @@ const AdminArticles = () => {
                                         {
                                             activeTab === 'published' ? (
                                                 <>
-
+                                                    <button onClick={() => openReviewModal('reject')} className='px-4 py-2 rounded-xl bg-red-500 text-white'>
+                                                        Ask for review
+                                                    </button>
                                                 </>
                                             ) : activeTab === 'toBeReviewed' ? (
                                                 <>
@@ -171,11 +173,9 @@ const AdminArticles = () => {
                                                             Accept
                                                         </button>
                                                     </div>
-                                                    <ReviewModal isOpen={reviewModalOpen} onClose={closeReviewModal} id={selectedArticle?.id} actionType={articleActionType} />
                                                 </>
                                             ) : (
                                                 <>
-
                                                 </>
                                             )
                                         }
@@ -192,6 +192,7 @@ const AdminArticles = () => {
                     </div>
                 </div>
             </div>
+            <ReviewModal isOpen={reviewModalOpen} onClose={closeReviewModal} id={selectedArticle?.id} actionType={articleActionType} />
         </>
     )
 }
