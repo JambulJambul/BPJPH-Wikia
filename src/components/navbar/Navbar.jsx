@@ -65,7 +65,7 @@ const Navbar = () => {
     <>
       <div className="fixed w-screen z-50 flex justify-between px-10 py-1 bg-gradient-to-r from-15% from-blue-900 to-blue-500 drop-shadow-2xl items-center">
         <div onClick={toHome} className="my-2 cursor-pointer">
-          <img src='/bpjph-logo.png' alt='BPJPH' className="h-12 max-w-full m-auto" />
+          <img src='/bpjph-logo.png' alt='BPJPH' className="h-10 xl:h-12 max-w-full m-auto" />
         </div>
         {
           isLoading ? (
@@ -73,11 +73,13 @@ const Navbar = () => {
           ) : (
             authStatus === 'admin' ? (<>
               <div onClick={toggleDropdown} className='cursor-pointer flex items-center'>
-                <h4 className='text-white mr-2'>Hi, {usernameDisplay}</h4>
+                <h4 className='hidden md:block text-white mr-2'>Hi, {usernameDisplay}</h4>
                 <FaUserCircle className='text-white' size={36} />
               </div>
               {dropdownOpen && (
                 <div className="absolute right-10 top-14 mt-2 w-48 bg-white border rounded-lg shadow-lg z-50">
+                  <h4 className='w-full text-left px-4 py-2 text-gray-800 hover:bg-gray-200 md:hidden'>Hi, {usernameDisplay}</h4>
+                  <hr className='md:hidden' />
                   <button onClick={toDashboard} className="w-full text-left px-4 py-2 text-gray-800 hover:bg-gray-200">
                     Dashboard
                   </button>

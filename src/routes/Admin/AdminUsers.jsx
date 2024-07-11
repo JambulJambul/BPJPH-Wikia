@@ -36,35 +36,35 @@ const AdminUsers = () => {
                     <table className="min-w-full">
                         <thead>
                             <tr>
-                                <th className="py-2 px-4">ID</th>
-                                <th className="py-2 px-4">Name</th>
-                                <th className="py-2 px-4">Email</th>
-                                <th className="py-2 px-4">Role</th>
+                                <th className="text-sm md:text-md xl:text-base py-2 px-4">ID</th>
+                                <th className="text-sm md:text-md xl:text-base py-2 px-4">Name</th>
+                                <th className="text-sm md:text-md xl:text-base py-2 px-4">Email</th>
+                                <th className="text-sm md:text-md xl:text-base py-2 px-4">Role</th>
                             </tr>
                         </thead>
                         <tbody>
                             {currentUsers.map(user => (
                                 <tr key={user.id} className="border-t">
-                                    <td className="text-center text-sm py-2 px-4">{user.id}</td>
-                                    <td className="text-center text-sm py-2 px-4">{user.username}</td>
-                                    <td className="text-center text-sm py-2 px-4">{user.email}</td>
-                                    <td className="text-center text-sm py-2 px-4">{user.role === '1' ? 'Admin' : 'User'}</td>
+                                    <td className="text-center text-sm md:text-md xl:text-base py-2 px-4">{user.id}</td>
+                                    <td className="text-center text-sm md:text-md xl:text-base py-2 px-4">{user.username}</td>
+                                    <td className="text-center text-sm md:text-md xl:text-base py-2 px-4">{user.email}</td>
+                                    <td className="text-center text-sm md:text-md xl:text-base py-2 px-4">{user.role === '1' ? 'Admin' : 'User'}</td>
                                 </tr>
                             ))}
                         </tbody>
                     </table>
-                    <div className="flex justify-between mt-4">
+                    <div className="flex justify-between mt-4 items-center">
                         <button
                             onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
-                            className="px-4 py-2 bg-blue-500 text-white rounded-md disabled:opacity-50"
+                            className="p-1 xl:px-4 xl:py-2 bg-blue-500 text-white rounded-md disabled:opacity-50"
                             disabled={currentPage === 1}
                         >
                             Previous
                         </button>
-                        <span>Page {currentPage} of {totalPages}</span>
+                        <span className='text-sm'>Page {currentPage} of {totalPages}</span>
                         <button
                             onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
-                            className="px-4 py-2 bg-blue-500 text-white rounded-md disabled:opacity-50"
+                            className="p-1 xl:px-4 xl:py-2 bg-blue-500 text-white rounded-md disabled:opacity-50"
                             disabled={currentPage === totalPages}
                         >
                             Next
