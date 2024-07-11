@@ -1,7 +1,35 @@
 import { Sidebar } from "../../components"
 import HelloImage from "../../assets/undraw_hello.svg"
 
+import { useState, useEffect } from "react"
+import axios from "axios"
+
 const AdminHome = () => {
+    const [userCount, setUserCount] = useState(0)
+    const [totalEntryCount, setTotalEntryCount] = useState(0)
+    const [toReviewEntryCount, setToReviewEntryCount] = useState(0)
+    const token = localStorage.getItem('token');
+    const AuthStr = 'Bearer '.concat(token);
+
+    useEffect(() => {
+        const fetchUsersCount = async () => {
+            const response = await axios.get(`${process.env.REACT_APP_API_URL}/users/count`, { headers: { Authorization: AuthStr } })
+            const fetchedUserCount = response?.data?.countTotalUser
+            setUserCount(fetchedUserCount);
+        };
+
+        const fetchEntriesCount = async () => {
+            const response = await axios.get(`${process.env.REACT_APP_API_URL}/entries/count`, { headers: { Authorization: AuthStr } })
+            const fetchedTotalArticle = response?.data?.countTotalArticle
+            const fetchedToReviewArticle = response?.data?.countToBeReviewed
+            setTotalEntryCount(fetchedTotalArticle);
+            setToReviewEntryCount(fetchedToReviewArticle);
+        };
+
+        fetchUsersCount();
+        fetchEntriesCount();
+    }, []);
+
     return (
         <>
             <div className="block xl:flex pt-12 xl:pt-24">
@@ -26,18 +54,12 @@ const AdminHome = () => {
                             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                                 <div className="bg-white p-6 rounded-lg shadow-md">
                                     <h3 className="text-lg font-semibold">Users</h3>
-                                    <p className="text-gray-700">Total: 4</p>
+                                    <p className="text-gray-700">Total: {userCount}</p>
                                 </div>
                                 <div className="bg-white p-6 rounded-lg shadow-md">
                                     <h3 className="text-lg font-semibold">Articles</h3>
-                                    <p className="text-gray-700">Total: 4</p>
-                                    <p className="text-red-600">To Review: 3</p>
-                                </div>
-                                <div className="bg-white p-6 rounded-lg shadow-md">
-                                    <h3 className="text-lg font-semibold">Notifications</h3>
-                                    <ul className="text-gray-700 list-disc list-inside">
-                                        <li>No new notifications</li>
-                                    </ul>
+                                    <p className="text-gray-700">Total: {totalEntryCount}</p>
+                                    <p className="text-red-600">To Review: {toReviewEntryCount}</p>
                                 </div>
                             </div>
                         </section>
