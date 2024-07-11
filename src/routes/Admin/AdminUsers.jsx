@@ -26,7 +26,7 @@ const AdminUsers = () => {
     const totalPages = Math.ceil(users.length / usersPerPage);
 
     return (
-        <div className="xl:flex pt-16">
+        <div className="xl:flex pt-10 sm:pt-12 md:pt-14">
             <div className="xl:w-64">
                 <Sidebar />
             </div>
