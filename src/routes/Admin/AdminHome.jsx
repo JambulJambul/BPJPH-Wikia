@@ -4,12 +4,12 @@ import HelloImage from "../../assets/undraw_hello.svg"
 const AdminHome = () => {
     return (
         <>
-            <div className="flex pt-24">
-                <div className="w-64">
+            <div className="block xl:flex pt-12 xl:pt-24">
+                <div className="xl:w-64">
                     <Sidebar />
                 </div>
-                <div className="max-w-[1440px] mx-auto py-16 px-24 flex-1">
-                    <div className="w-full rounded-lg px-10 py-6 shadow-xl flex justify-between items-center">
+                <div className="max-w-[1440px] mx-auto py-16 px-12 xl:px-24 xl:flex-1">
+                    <div className="w-full rounded-lg px-10 py-6 shadow-xl flex justify-between items-center flex-col-reverse xl:flex-row">
                         <div>
                             <h1 className="text-2xl pb-4">
                                 Hi Admin,
