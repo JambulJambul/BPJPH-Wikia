@@ -23,7 +23,6 @@ const SuccessModal = ({ isOpen, onClose, eventType }) => {
                                         : eventType === 'delete' ? 'Are you sure to delete article?'
                                             : 'Empty Modal'}
                             </h1>
-
                         </h1>
                         {eventType === 'delete' ?
                             <div className="flex gap-8">

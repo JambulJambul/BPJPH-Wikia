@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import { Route, Routes } from 'react-router-dom';
-import { Article, Dictionary, MyProfile, Register, AdminHome, AdminUsers, AdminArticles } from './routes';
+import { Article, Dictionary, MyProfile, AdminHome, AdminUsers, AdminArticles } from './routes';
 import ProtectedRoute from './routes/Components/ProtectedRoutes';
 
 function App() {
