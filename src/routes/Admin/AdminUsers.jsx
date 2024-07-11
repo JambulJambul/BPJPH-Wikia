@@ -26,13 +26,13 @@ const AdminUsers = () => {
     const totalPages = Math.ceil(users.length / usersPerPage);
 
     return (
-        <div className="flex pt-16">
-            <div className="w-64">
+        <div className="xl:flex pt-16">
+            <div className="xl:w-64">
                 <Sidebar />
             </div>
-            <div className="mx-auto py-16 px-24 flex-1">
+            <div className="mx-auto py-16 px-12 xl:px-24 xl:flex-1">
                 <h2 className="text-2xl mb-8">Users</h2>
-                <div className="bg-white p-6 rounded-lg shadow-md">
+                <div className="bg-white p-6 rounded-lg shadow-md overflow-x-auto">
                     <table className="min-w-full">
                         <thead>
                             <tr>
@@ -45,10 +45,10 @@ const AdminUsers = () => {
                         <tbody>
                             {currentUsers.map(user => (
                                 <tr key={user.id} className="border-t">
-                                    <td className="text-center py-2 px-4">{user.id}</td>
-                                    <td className="text-center py-2 px-4">{user.username}</td>
-                                    <td className="text-center py-2 px-4">{user.email}</td>
-                                    <td className="text-center py-2 px-4">{user.role === '1' ? 'Admin' : 'User'}</td>
+                                    <td className="text-center text-sm py-2 px-4">{user.id}</td>
+                                    <td className="text-center text-sm py-2 px-4">{user.username}</td>
+                                    <td className="text-center text-sm py-2 px-4">{user.email}</td>
+                                    <td className="text-center text-sm py-2 px-4">{user.role === '1' ? 'Admin' : 'User'}</td>
                                 </tr>
                             ))}
                         </tbody>
