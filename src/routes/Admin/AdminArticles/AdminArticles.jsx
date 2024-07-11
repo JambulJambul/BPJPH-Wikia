@@ -55,7 +55,20 @@ const AdminArticles = () => {
 
     const handleArticleClick = (article) => {
         setSelectedArticle(article);
+        const element = document.getElementById("selected");
+        if (element) {
+            element.scrollIntoView({ behavior: "smooth" });
+        }
     };
+
+    useEffect(() => {
+        if (selectedArticle) {
+            const element = document.getElementById("selected");
+            if (element) {
+                element.scrollIntoView({ behavior: "smooth" });
+            }
+        }
+    }, [selectedArticle]);
 
     const changeTab = (tab) => {
         setSelectedArticle(null)
@@ -79,13 +92,13 @@ const AdminArticles = () => {
 
     return (
         <>
-            <div className='flex pt-16'>
-                <div className="w-64">
+            <div className='xl:flex pt-10 sm:pt-12 md:pt-14'>
+                <div className="xl:w-64">
                     <Sidebar />
                 </div>
-                <div className="mx-auto py-16 px-24 flex-1 ">
+                <div className="mx-auto py-16 px-12 xl:px-24 xl:flex-1">
                     <h2 className="text-2xl mb-8">Articles</h2>
-                    <div className="flex justify-between items-center my-5">
+                    <div className="flex justify-between my-5 items-stretch xl:items-center">
                         <button
                             onClick={() => changeTab('published')}
                             className={`${activeTab === 'published' ? 'bg-blue-500 text-white' : 'bg-blue-300 text-slate-800'
@@ -108,23 +121,10 @@ const AdminArticles = () => {
                             Pending
                         </button>
                     </div>
-                    <div className='flex'>
-                        <div className='flex-initial pr-10'>
-                            <div>
-                                {currentArticles?.map(article => (
-                                    <div key={article?.id} className="border-t py-4 w-64 cursor-pointer" onClick={() => handleArticleClick(article)}>
-                                        <h3 className='py-1 font-bold'>
-                                            {article?.title}
-                                        </h3>
-                                        <p>
-                                            {article?.content}
-                                        </p>
-                                        <p>
-                                            {article?.user_id}
-                                        </p>
-                                    </div>
-                                ))}
-                                <div className="flex justify-between mt-4 items-center gap-2">
+                    <div className='sm:flex'>
+                        <div className='sm:flex-initial sm:pr-10'>
+                            <div className='sm:mb-10'>
+                                <div className="flex justify-between my-4 items-center gap-2">
                                     <FaArrowLeft
                                         onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
                                         className="cursor-pointer"
@@ -136,40 +136,53 @@ const AdminArticles = () => {
                                         disabled={currentPage === totalPages}
                                     />
                                 </div>
+                                {currentArticles?.map(article => (
+                                    <div key={article?.id} className="border-t py-4 sm:w-40 xl:w-64 cursor-pointer" onClick={() => handleArticleClick(article)}>
+                                        <h3 className='py-1 text-sm md:text-md xl:text-base font-bold'>
+                                            {article?.title}
+                                        </h3>
+                                        <p className='text-sm md:text-md xl:text-base'>
+                                            {article?.content}
+                                        </p>
+                                        <p className='text-sm md:text-md xl:text-base'>
+                                            {article?.user_id}
+                                        </p>
+                                    </div>
+                                ))}
                             </div>
                         </div>
-                        <div className='flex-auto h-[75vh] p-4'>
+                        <div className='sm:flex-auto h-[75vh] pt-12 sm:p-4'>
                             {selectedArticle ? (
-                                <div>
-                                    <h2 className="text-2xl font-bold mb-4">{selectedArticle?.title}</h2>
+                                <div id='selected' className='pb-24 sm:pb-0'>
+                                    <h2 className="text-base md:text-xl xl:text-2xl font-bold mb-4 break-words">{selectedArticle?.title}</h2>
                                     {selectedArticle?.img ?
                                         (
                                             <>
-                                                <img loading='lazy' src={selectedArticle?.img} alt={selectedArticle?.title} className="h-64 my-2 border-solid border border-slate-400" />
+                                                <img loading='lazy' src={selectedArticle?.img} alt={selectedArticle?.title} className="h-64 my-2 object-contain border-solid border border-slate-400" />
                                             </>
                                         ) : (<>
                                             <div className='inline-block p-32 border-solid border border-slate-400 my-2'>
                                                 <p>No image provided...</p>
                                             </div>
                                         </>)}
-                                    <p>{selectedArticle?.content}</p>
-                                    <p className="my-4">Article ID: {selectedArticle?.id}</p>
-                                    <p className="my-4">References: <Link to={selectedArticle?.references}> {selectedArticle?.references} </Link></p>
+                                    <p className='break-words text-sm md:text-md xl:text-base'>{selectedArticle?.content}</p>
+                                    <p className="my-4 break-words text-sm md:text-md xl:text-base">Article ID: {selectedArticle?.id}</p>
+                                    <p className="my-4 break-words text-sm md:text-md xl:text-base">References: <Link to={selectedArticle?.references}> {selectedArticle?.references} </Link></p>
                                     <div className='my-4'>
                                         {
                                             activeTab === 'published' ? (
                                                 <>
-                                                    <button onClick={() => openReviewModal('reject')} className='px-4 py-2 rounded-xl bg-red-500 text-white'>
+                                                    <button onClick={() => openReviewModal('reject')} className='px-4 py-2 rounded-xl text-sm md:text-md xl:text-base bg-red-500 text-white'>
                                                         Ask for review
                                                     </button>
                                                 </>
                                             ) : activeTab === 'toBeReviewed' ? (
                                                 <>
                                                     <div className='flex gap-8'>
-                                                        <button onClick={() => openReviewModal('reject')} className='px-4 py-2 rounded-xl bg-red-500 text-white'>
+                                                        <button onClick={() => openReviewModal('reject')} className='px-4 py-2 rounded-xl text-sm md:text-md xl:text-base bg-red-500 text-white'>
                                                             Reject
                                                         </button>
-                                                        <button onClick={() => openReviewModal('accept')} className='px-4 py-2 rounded-xl bg-green-500 text-white'>
+                                                        <button onClick={() => openReviewModal('accept')} className='px-4 py-2 rounded-xl text-sm md:text-md xl:text-base bg-green-500 text-white'>
                                                             Accept
                                                         </button>
                                                     </div>
