@@ -12,8 +12,8 @@ const Sidebar = () => {
 
     return (
         <aside>
-            <div className="fixed z-10 h-screen left-0 top-0 w-64 pt-16 bg-gradient-to-b from-blue-900 to-blue-300 text-white overflow-hidden">
-                <div className="pt-10 px-8">
+            <div className="fixed z-10 bottom-0 xl:h-screen xl:left-0 xl:top-0 w-full xl:w-64 xl:pt-16 bg-gradient-to-r xl:bg-gradient-to-b from-blue-900 xl:to-blue-300 to-blue-500 text-white overflow-hidden">
+                <div className="flex justify-around xl:block xl:pt-10 xl:px-8">
                     {sidebarItems.map((item, index) => (
                         <SidebarItem key={index} icon={item.icon} title={item.title} urlTo={item.urlTo} />
                     ))}
